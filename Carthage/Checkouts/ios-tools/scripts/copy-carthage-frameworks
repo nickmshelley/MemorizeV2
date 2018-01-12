@@ -1,0 +1,50 @@
+#!/bin/sh
+
+if [ "x" == "x$SRCROOT" ] || [ "x" == "x$BUILT_PRODUCTS_DIR" ] || [ "x" == "x$FRAMEWORKS_FOLDER_PATH" ] ; then
+  echo "Missing Xcode environment variables."
+  exit 1
+fi
+
+if [ "x$(which carthage)" == "x" ]; then
+  echo "Carthage is not installed"
+  exit 1
+fi
+
+CARTHAGE_BUILD_DIR="$SRCROOT/Carthage/Build/iOS"
+
+FRAMEWORK_TARGET_DIR="$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH"
+
+echo "Processing Carthage frameworks..."
+let fcount=0
+# Support paths with evil spaces
+IFS=$'\n'
+for framework in $(find "$FRAMEWORK_TARGET_DIR" -name "*.framework")
+do
+	basename=${framework##*/}
+	carthage_framework="$CARTHAGE_BUILD_DIR/$basename"
+	if [ ! -d $carthage_framework ]; then
+		echo "Skipping $framework"
+		continue
+	fi
+	wsframework="$BUILT_PRODUCTS_DIR/$basename"
+
+	output=$framework
+	if [ -e $wsframework ]; then
+		input=$wsframework
+	else
+		input=$carthage_framework
+	fi
+	export SCRIPT_INPUT_FILE_$fcount=$input
+	export SCRIPT_OUTPUT_FILE_$fcount=$output
+
+	echo "SCRIPT_INPUT_FILE_$fcount=$input"
+	echo "SCRIPT_OUTPUT_FILE_$fcount=$output"
+	let fcount=$fcount+1
+done
+
+export SCRIPT_INPUT_FILE_COUNT=$fcount
+export SCRIPT_OUTPUT_FILE_COUNT=$fcount
+
+carthage copy-frameworks
+
+
