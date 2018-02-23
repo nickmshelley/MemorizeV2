@@ -1,4 +1,4 @@
-git "ssh://git@stash01.myfamilysouth.com:7999/mbt/ios-tools.git" "4d23657f649b268356bebac11eda37d9305a1573"
-github "ReactiveX/RxSwift" "4.1.1"
+github "Raizlabs/Anchorage" "4.2.1"
+github "ReactiveX/RxSwift" "4.1.2"
 github "ReactorSwift/Reactor" "0.9"
 github "stephencelis/SQLite.swift" "0.11.4"

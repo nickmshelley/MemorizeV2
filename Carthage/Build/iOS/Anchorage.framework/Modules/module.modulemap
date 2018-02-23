@@ -1,0 +1,4 @@
+framework module Anchorage {
+    header "Anchorage-Swift.h"
+    requires objc
+}
