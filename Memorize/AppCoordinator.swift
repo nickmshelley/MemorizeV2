@@ -17,7 +17,7 @@ final class AppCoordinator {
     func start() {
         let reviewViewController = ReviewViewController()
         reviewViewController.tabBarItem = UITabBarItem(title: "Review", image: #imageLiteral(resourceName: "check-circle"), tag: 0)
-        let cardsViewController = CardsViewController()
+        let cardsViewController = UINavigationController(rootViewController: CardsViewController())
         cardsViewController.tabBarItem = UITabBarItem(title: "Cards", image: #imageLiteral(resourceName: "file"), tag: 0)
         let statsViewController = StatsViewController()
         statsViewController.tabBarItem = UITabBarItem(title: "Stats", image: #imageLiteral(resourceName: "bar-chart"), tag: 0)

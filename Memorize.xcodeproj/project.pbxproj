@@ -26,7 +26,6 @@
 		36393A982009758D00C95347 /* CardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A972009758D00C95347 /* CardsViewController.swift */; };
 		36393A9A200976E200C95347 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A99200976E200C95347 /* StatsViewController.swift */; };
 		36393A9C2009771300C95347 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A9B2009771300C95347 /* SettingsViewController.swift */; };
-		36393A9E2009773700C95347 /* CardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36393A9D2009773700C95347 /* CardsViewController.xib */; };
 		36393AA02009775A00C95347 /* StatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36393A9F2009775A00C95347 /* StatsViewController.xib */; };
 		36393AA22009777900C95347 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36393AA12009777900C95347 /* SettingsViewController.xib */; };
 /* End PBXBuildFile section */
@@ -87,7 +86,6 @@
 		36393A972009758D00C95347 /* CardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewController.swift; sourceTree = "<group>"; };
 		36393A99200976E200C95347 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		36393A9B2009771300C95347 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		36393A9D2009773700C95347 /* CardsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardsViewController.xib; sourceTree = "<group>"; };
 		36393A9F2009775A00C95347 /* StatsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsViewController.xib; sourceTree = "<group>"; };
 		36393AA12009777900C95347 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,7 +150,6 @@
 				36393A57200958F200C95347 /* ReviewViewController.swift */,
 				36393A9520095B9100C95347 /* ReviewViewController.xib */,
 				36393A972009758D00C95347 /* CardsViewController.swift */,
-				36393A9D2009773700C95347 /* CardsViewController.xib */,
 				36393A99200976E200C95347 /* StatsViewController.swift */,
 				36393A9F2009775A00C95347 /* StatsViewController.xib */,
 				36393A9B2009771300C95347 /* SettingsViewController.swift */,
@@ -299,7 +296,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36393A9E2009773700C95347 /* CardsViewController.xib in Resources */,
 				36393AA22009777900C95347 /* SettingsViewController.xib in Resources */,
 				36393A182009324C00C95347 /* LaunchScreen.storyboard in Resources */,
 				36393AA02009775A00C95347 /* StatsViewController.xib in Resources */,
