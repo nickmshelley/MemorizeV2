@@ -13,6 +13,7 @@ class CardViewerViewController: UIViewController {
     private let questionView: FlippableTextView
     private let answerView: FlippableTextView
     private var isShowingQuestion = true
+    private var heightConstraint = NSLayoutConstraint()
     
     init(card: Card) {
         self.card = card
@@ -29,6 +30,14 @@ class CardViewerViewController: UIViewController {
         super.viewDidLoad()
         configureView()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        print(answerView.bounds.size)
+        print(answerView.intrinsicContentSize)
+        heightConstraint.constant = answerView.intrinsicContentSize.height
+        answerView.setNeedsLayout()
+    }
 }
 
 extension CardViewerViewController {
@@ -37,7 +46,9 @@ extension CardViewerViewController {
         
         view.backgroundColor = .gray
         
-        questionView.edgeAnchors == view.safeAreaLayoutGuide.edgeAnchors + 20
+        questionView.edgeAnchors >= view.safeAreaLayoutGuide.edgeAnchors + 20
         answerView.edgeAnchors == questionView.edgeAnchors
+        answerView.centerYAnchor == view.centerYAnchor
+        heightConstraint = answerView.heightAnchor == 50 ~ .high
     }
 }
