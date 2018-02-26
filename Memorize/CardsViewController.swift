@@ -39,4 +39,9 @@ extension CardsViewController {
         cell.textLabel?.text = card.question
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let card = cards[indexPath.row]
+        navigationController?.pushViewController(CardViewerViewController(card: card), animated: true)
+    }
 }
