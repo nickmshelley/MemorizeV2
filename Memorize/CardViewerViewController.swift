@@ -13,7 +13,8 @@ class CardViewerViewController: UIViewController {
     private let questionView: FlippableTextView
     private let answerView: FlippableTextView
     private var isShowingQuestion = true
-    private var heightConstraint = NSLayoutConstraint()
+    private var questionHeightConstraint = NSLayoutConstraint()
+    private var answerHeightConstraint = NSLayoutConstraint()
     
     init(card: Card) {
         self.card = card
@@ -29,26 +30,44 @@ class CardViewerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
+        tapGesture.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tapGesture)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        print(answerView.bounds.size)
-        print(answerView.intrinsicContentSize)
-        heightConstraint.constant = answerView.intrinsicContentSize.height
-        answerView.setNeedsLayout()
+        questionHeightConstraint.constant = questionView.intrinsicContentSize.height
+        answerHeightConstraint.constant = answerView.intrinsicContentSize.height
     }
 }
 
 extension CardViewerViewController {
     func configureView() {
-        [questionView, answerView].forEach { self.view.addSubview($0) }
+        let container = UIView(frame: .zero)
+        [questionView, answerView].forEach { container.addSubview($0) }
+        view.addSubview(container)
+        answerView.isHidden = true
         
         view.backgroundColor = .gray
         
-        questionView.edgeAnchors >= view.safeAreaLayoutGuide.edgeAnchors + 20
-        answerView.edgeAnchors == questionView.edgeAnchors
-        answerView.centerYAnchor == view.centerYAnchor
-        heightConstraint = answerView.heightAnchor == 50 ~ .high
+        container.edgeAnchors == view.edgeAnchors
+        questionView.edgeAnchors >= container.safeAreaLayoutGuide.edgeAnchors + 20
+        answerView.edgeAnchors >= container.safeAreaLayoutGuide.edgeAnchors + 20
+        questionView.centerYAnchor == container.centerYAnchor
+        answerView.centerYAnchor == container.centerYAnchor
+        questionHeightConstraint = questionView.heightAnchor == 50 ~ .high
+        answerHeightConstraint = answerView.heightAnchor == 50 ~ .high
+    }
+    
+    @objc func tap() {
+        if isShowingQuestion {
+            UIView.transition(from: questionView, to: answerView, duration: 0.5, options: [.transitionFlipFromLeft, .showHideTransitionViews], completion: nil)
+        } else {
+            UIView.transition(from: answerView, to: questionView, duration: 0.5, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: nil)
+        }
+        
+        isShowingQuestion = !isShowingQuestion
     }
 }
