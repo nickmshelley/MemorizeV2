@@ -54,20 +54,12 @@ extension CardViewerViewController {
         view.addSubview(questionAnswerContainer)
         answerView.isHidden = true
         
-        view.backgroundColor = .lightGray
+        view.backgroundColor = UIColor(white: 0.9, alpha: 1)
         titleLabel.text = "Question"
         titleLabel.font = UIFont.systemFont(ofSize: 28)
         titleLabel.textAlignment = .center
-        questionView.layer.cornerRadius = 5
-        questionView.clipsToBounds = false
-        questionView.layer.shadowOffset = CGSize(width: -2, height: 2)
-        questionView.layer.shadowRadius = 2
-        questionView.layer.shadowOpacity = 0.5
-        answerView.layer.cornerRadius = 5
-        answerView.clipsToBounds = false
-        answerView.layer.shadowOffset = CGSize(width: -2, height: 2)
-        answerView.layer.shadowRadius = 2
-        answerView.layer.shadowOpacity = 0.5
+        addShadow(toView: questionView)
+        addShadow(toView: answerView)
         
         titleLabel.horizontalAnchors == view.safeAreaLayoutGuide.horizontalAnchors + 16
         titleLabel.topAnchor == view.safeAreaLayoutGuide.topAnchor + 16
@@ -80,6 +72,14 @@ extension CardViewerViewController {
         answerView.centerYAnchor == questionAnswerContainer.centerYAnchor
         questionHeightConstraint = questionView.heightAnchor == 50 ~ .high
         answerHeightConstraint = answerView.heightAnchor == 50 ~ .high
+    }
+    
+    private func addShadow(toView view: UIView) {
+        view.layer.cornerRadius = 5
+        view.clipsToBounds = false
+        view.layer.shadowOffset = CGSize(width: -2, height: 2)
+        view.layer.shadowRadius = 2
+        view.layer.shadowOpacity = 0.5
     }
     
     @objc func tap() {
