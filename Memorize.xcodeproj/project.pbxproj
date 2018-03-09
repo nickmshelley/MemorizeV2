@@ -12,6 +12,7 @@
 		3203EC0D2043AFEA005071C0 /* UIStackView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3203EC0C2043AFEA005071C0 /* UIStackView+Helpers.swift */; };
 		3203EC102043B3F2005071C0 /* Anchorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3203EC0E2043B3E8005071C0 /* Anchorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3203EC112043B3F8005071C0 /* Anchorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3203EC0E2043B3E8005071C0 /* Anchorage.framework */; };
+		3211FCF9204EDA8600B38B72 /* cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 3211FCF8204EDA8600B38B72 /* cards.json */; };
 		32DBBFFF2040C49300D14A31 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DBBFFE2040C49300D14A31 /* Card.swift */; };
 		32DBC0012040C68C00D14A31 /* UserDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DBC0002040C68C00D14A31 /* UserDataController.swift */; };
 		36393A0E2009324C00C95347 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A0D2009324C00C95347 /* AppDelegate.swift */; };
@@ -74,6 +75,7 @@
 		3203EC0A2043ADF9005071C0 /* FlippableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlippableTextView.swift; sourceTree = "<group>"; };
 		3203EC0C2043AFEA005071C0 /* UIStackView+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Helpers.swift"; sourceTree = "<group>"; };
 		3203EC0E2043B3E8005071C0 /* Anchorage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Anchorage.framework; path = Carthage/Build/iOS/Anchorage.framework; sourceTree = "<group>"; };
+		3211FCF8204EDA8600B38B72 /* cards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cards.json; sourceTree = "<group>"; };
 		32DBBFFE2040C49300D14A31 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		32DBC0002040C68C00D14A31 /* UserDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataController.swift; sourceTree = "<group>"; };
 		36393A0A2009324C00C95347 /* Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +172,7 @@
 				3203EC082043AD64005071C0 /* CardViewerViewController.swift */,
 				3203EC0A2043ADF9005071C0 /* FlippableTextView.swift */,
 				3203EC0C2043AFEA005071C0 /* UIStackView+Helpers.swift */,
+				3211FCF8204EDA8600B38B72 /* cards.json */,
 			);
 			path = Memorize;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36393AA22009777900C95347 /* SettingsViewController.xib in Resources */,
+				3211FCF9204EDA8600B38B72 /* cards.json in Resources */,
 				36393A182009324C00C95347 /* LaunchScreen.storyboard in Resources */,
 				36393AA02009775A00C95347 /* StatsViewController.xib in Resources */,
 				36393A152009324C00C95347 /* Assets.xcassets in Resources */,

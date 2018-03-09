@@ -66,6 +66,8 @@ class UserDataController {
                 try self.db.run(CardTable.createTable())
                 
                 try self.setDatabaseVersion(1)
+                
+                importInitial()
             }
         }
     }
@@ -165,17 +167,44 @@ extension UserDataController {
         return try db.prepareRowIterator(CardTable.table.order(CardTable.question)).map { try CardTable.fromRow($0) }
     }
     
-    func createCard(question: String, answer: String) throws {
-        let uuid = NSUUID().uuidString
+    func createCard(id: String = NSUUID().uuidString, question: String, answer: String, isReviewing: Bool = false, normalSuccessCount: Int = 0, reverseSuccessCount: Int = 0, normalNextReviewDate: Date? = nil, reverseNextReviewDate: Date? = nil) throws {
         try db.run(CardTable.table.insert(
-            CardTable.id <- uuid,
+            CardTable.id <- id,
             CardTable.question <- question,
             CardTable.answer <- answer,
-            CardTable.isReviewing <- false,
-            CardTable.normalSuccessCount <- 0,
-            CardTable.reverseSuccessCount <- 0,
-            CardTable.normalNextReviewDate <- nil,
-            CardTable.reverseNextReviewDate <- nil
+            CardTable.isReviewing <- isReviewing,
+            CardTable.normalSuccessCount <- normalSuccessCount,
+            CardTable.reverseSuccessCount <- reverseSuccessCount,
+            CardTable.normalNextReviewDate <- normalNextReviewDate,
+            CardTable.reverseNextReviewDate <- reverseNextReviewDate
         ))
+    }
+}
+
+extension UserDataController {
+    private func importInitial() {
+        let jsonData = try! Data(contentsOf: Bundle.main.url(forResource: "cards", withExtension: "json")!)
+        let cards = try! JSONSerialization.jsonObject(with: jsonData, options: []) as! [[String: Any]]
+        var tempSet = Set<String>()
+        var uniqueCards = [(question: String, answer: String)]()
+        for jsonCard in cards {
+            let question = jsonCard["question"] as! String
+            let answer = jsonCard["answer"] as! String
+            let cleanedUpQuestion = question.trimmingCharacters(in: .whitespaces).replacingOccurrences(of: "\u{00a0}", with: " ")
+            if !tempSet.contains(cleanedUpQuestion) {
+                tempSet.insert(cleanedUpQuestion)
+                uniqueCards.append((question: cleanedUpQuestion, answer: processedAnswer(raw: answer)))
+            }
+        }
+        
+        for (question, answer) in uniqueCards {
+            let date = Date()
+            try! createCard(question: question, answer: answer, isReviewing: true, normalSuccessCount: 10, reverseSuccessCount: 10, normalNextReviewDate: date, reverseNextReviewDate: date)
+        }
+    }
+    
+    private func processedAnswer(raw: String) -> String {
+        let components = raw.components(separatedBy: .newlines).filter { !$0.isEmpty }
+        return components.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }.joined(separator: "\n\n")
     }
 }
