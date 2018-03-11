@@ -6,29 +6,22 @@
 //
 
 import XCTest
+@testable import Memorize
 
 class StatsViewModelTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testStats() {
+        let reviewing = (1...5).map { _ in createCard(isReviewing: true) }
+        let notReviewing = (1...10).map { _ in createCard(isReviewing: false) }
+        let stats = StatsViewModel().stats(from: reviewing + notReviewing)
+        
+        XCTAssertEqual(stats.totalCards, 15)
+        XCTAssertEqual(stats.totalReviewing, 5)
+        XCTAssertEqual(stats.totalNotReviewing, 10)
     }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+}
+
+extension StatsViewModelTests {
+    private func createCard(isReviewing: Bool) -> Card {
+        return Card(id: "", question: "", answer: "", isReviewing: isReviewing, normalSuccessCount: 0, reverseSuccessCount: 0, normalNextReviewDate: nil, reverseNextReviewDate: nil)
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

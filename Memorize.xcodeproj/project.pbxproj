@@ -12,7 +12,11 @@
 		3203EC0D2043AFEA005071C0 /* UIStackView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3203EC0C2043AFEA005071C0 /* UIStackView+Helpers.swift */; };
 		3203EC102043B3F2005071C0 /* Anchorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3203EC0E2043B3E8005071C0 /* Anchorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3203EC112043B3F8005071C0 /* Anchorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3203EC0E2043B3E8005071C0 /* Anchorage.framework */; };
+		3211073B2055DA3400BED703 /* Swiftification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321107392055DA2A00BED703 /* Swiftification.framework */; };
+		3211073C2055DA3400BED703 /* Swiftification.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 321107392055DA2A00BED703 /* Swiftification.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3211073E2055DADC00BED703 /* StatsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3211073D2055DADC00BED703 /* StatsViewModelTests.swift */; };
 		3211FCF9204EDA8600B38B72 /* cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 3211FCF8204EDA8600B38B72 /* cards.json */; };
+		32513CB720558881007D4A22 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32513CB620558881007D4A22 /* StatsViewModel.swift */; };
 		32DBBFFF2040C49300D14A31 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DBBFFE2040C49300D14A31 /* Card.swift */; };
 		32DBC0012040C68C00D14A31 /* UserDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DBC0002040C68C00D14A31 /* UserDataController.swift */; };
 		36393A0E2009324C00C95347 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A0D2009324C00C95347 /* AppDelegate.swift */; };
@@ -32,7 +36,6 @@
 		36393A982009758D00C95347 /* CardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A972009758D00C95347 /* CardsViewController.swift */; };
 		36393A9A200976E200C95347 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A99200976E200C95347 /* StatsViewController.swift */; };
 		36393A9C2009771300C95347 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A9B2009771300C95347 /* SettingsViewController.swift */; };
-		36393AA02009775A00C95347 /* StatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36393A9F2009775A00C95347 /* StatsViewController.xib */; };
 		36393AA22009777900C95347 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36393AA12009777900C95347 /* SettingsViewController.xib */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +66,7 @@
 				36393A502009537400C95347 /* RxSwift.framework in Embed Frameworks */,
 				36393A4E2009537400C95347 /* Reactor.framework in Embed Frameworks */,
 				36393A522009537400C95347 /* SQLite.framework in Embed Frameworks */,
+				3211073C2055DA3400BED703 /* Swiftification.framework in Embed Frameworks */,
 				3203EC102043B3F2005071C0 /* Anchorage.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -75,7 +79,10 @@
 		3203EC0A2043ADF9005071C0 /* FlippableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlippableTextView.swift; sourceTree = "<group>"; };
 		3203EC0C2043AFEA005071C0 /* UIStackView+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Helpers.swift"; sourceTree = "<group>"; };
 		3203EC0E2043B3E8005071C0 /* Anchorage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Anchorage.framework; path = Carthage/Build/iOS/Anchorage.framework; sourceTree = "<group>"; };
+		321107392055DA2A00BED703 /* Swiftification.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swiftification.framework; path = Carthage/Build/iOS/Swiftification.framework; sourceTree = "<group>"; };
+		3211073D2055DADC00BED703 /* StatsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModelTests.swift; sourceTree = "<group>"; };
 		3211FCF8204EDA8600B38B72 /* cards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cards.json; sourceTree = "<group>"; };
+		32513CB620558881007D4A22 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		32DBBFFE2040C49300D14A31 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		32DBC0002040C68C00D14A31 /* UserDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataController.swift; sourceTree = "<group>"; };
 		36393A0A2009324C00C95347 /* Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,7 +105,6 @@
 		36393A972009758D00C95347 /* CardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewController.swift; sourceTree = "<group>"; };
 		36393A99200976E200C95347 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		36393A9B2009771300C95347 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		36393A9F2009775A00C95347 /* StatsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsViewController.xib; sourceTree = "<group>"; };
 		36393AA12009777900C95347 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +116,7 @@
 				3203EC112043B3F8005071C0 /* Anchorage.framework in Frameworks */,
 				36393A4F2009537400C95347 /* RxSwift.framework in Frameworks */,
 				36393A4D2009537400C95347 /* Reactor.framework in Frameworks */,
+				3211073B2055DA3400BED703 /* Swiftification.framework in Frameworks */,
 				36393A512009537400C95347 /* SQLite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -164,7 +171,7 @@
 				36393A9520095B9100C95347 /* ReviewViewController.xib */,
 				36393A972009758D00C95347 /* CardsViewController.swift */,
 				36393A99200976E200C95347 /* StatsViewController.swift */,
-				36393A9F2009775A00C95347 /* StatsViewController.xib */,
+				32513CB620558881007D4A22 /* StatsViewModel.swift */,
 				36393A9B2009771300C95347 /* SettingsViewController.swift */,
 				36393AA12009777900C95347 /* SettingsViewController.xib */,
 				32DBBFFE2040C49300D14A31 /* Card.swift */,
@@ -181,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				36393A222009324C00C95347 /* UserDataTests.swift */,
+				3211073D2055DADC00BED703 /* StatsViewModelTests.swift */,
 				36393A242009324D00C95347 /* Info.plist */,
 			);
 			path = MemorizeTests;
@@ -198,6 +206,7 @@
 		36393A462009536900C95347 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				321107392055DA2A00BED703 /* Swiftification.framework */,
 				3203EC0E2043B3E8005071C0 /* Anchorage.framework */,
 				36393A482009536900C95347 /* Reactor.framework */,
 				36393A472009536900C95347 /* RxSwift.framework */,
@@ -317,7 +326,6 @@
 				36393AA22009777900C95347 /* SettingsViewController.xib in Resources */,
 				3211FCF9204EDA8600B38B72 /* cards.json in Resources */,
 				36393A182009324C00C95347 /* LaunchScreen.storyboard in Resources */,
-				36393AA02009775A00C95347 /* StatsViewController.xib in Resources */,
 				36393A152009324C00C95347 /* Assets.xcassets in Resources */,
 				36393A9620095B9100C95347 /* ReviewViewController.xib in Resources */,
 			);
@@ -370,6 +378,7 @@
 				3203EC0B2043ADF9005071C0 /* FlippableTextView.swift in Sources */,
 				3203EC0D2043AFEA005071C0 /* UIStackView+Helpers.swift in Sources */,
 				3203EC092043AD64005071C0 /* CardViewerViewController.swift in Sources */,
+				32513CB720558881007D4A22 /* StatsViewModel.swift in Sources */,
 				36393A9C2009771300C95347 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +387,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3211073E2055DADC00BED703 /* StatsViewModelTests.swift in Sources */,
 				36393A232009324C00C95347 /* UserDataTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

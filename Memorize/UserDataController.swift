@@ -67,7 +67,7 @@ class UserDataController {
                 
                 try self.setDatabaseVersion(1)
                 
-                importInitial()
+                //importInitial()
             }
         }
     }

@@ -14,13 +14,13 @@ class CardsViewController: UITableViewController {
         super.viewDidLoad()
         
         title = "Cards"
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
         do {
             cards = try UserDataController.shared?.allCards() ?? []
         } catch {
             print("Couldn't load cards.")
         }
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 }
 
