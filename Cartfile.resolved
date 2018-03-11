@@ -1,3 +1,4 @@
+github "CrossWaterBridge/Swiftification" "10.1.0"
 github "Raizlabs/Anchorage" "4.2.1"
 github "ReactiveX/RxSwift" "4.1.2"
 github "ReactorSwift/Reactor" "0.9"

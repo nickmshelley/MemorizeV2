@@ -1,0 +1,11 @@
+framework module Swiftification {
+  umbrella header "Swiftification.h"
+
+  export *
+  module * { export * }
+}
+
+module Swiftification.Swift {
+    header "Swiftification-Swift.h"
+    requires objc
+}
