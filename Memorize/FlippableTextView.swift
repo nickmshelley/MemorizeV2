@@ -41,7 +41,7 @@ extension FlippableTextView {
         scrollView.addSubview(container)
         addSubview(scrollView)
         
-        textLabel.font = UIFont.systemFont(ofSize: 30)
+        textLabel.font = UIFont.systemFont(ofSize: 22)
         textLabel.numberOfLines = 0
         backgroundColor = .white
         

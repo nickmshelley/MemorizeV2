@@ -26,7 +26,7 @@ class StatsViewController: UITableViewController {
         super.viewDidLoad()
         
         title = "Stats"
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(StatCell.self, forCellReuseIdentifier: "Cell")
         tableView.allowsSelection = false
         
         do {
@@ -52,9 +52,9 @@ extension StatsViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! StatCell
         let row = sections[indexPath.section].rows[indexPath.row]
-        cell.textLabel?.text = [row.topText, row.middleText, row.bottomText].joined(separator: " /// ")
+        cell.configure(topText: row.topText, middleText: row.middleText, bottomText: row.bottomText)
         return cell
     }
 }
