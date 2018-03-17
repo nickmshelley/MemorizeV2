@@ -12,6 +12,8 @@ class StatCell: UITableViewCell {
     private let topLabel = UILabel(frame: .zero)
     private let middleLabel = UILabel(frame: .zero)
     private let bottomLabel = UILabel(frame: .zero)
+    private let middleContainer = UIView(frame: .zero)
+    private let bottomContainer = UIView(frame: .zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,25 +27,30 @@ class StatCell: UITableViewCell {
 
 extension StatCell {
     private func configureViews() {
-        [topLabel, middleLabel, bottomLabel].forEach {
-            self.contentView.addSubview($0)
-            $0.font = .systemFont(ofSize: 22)
-        }
+        middleContainer.addSubview(middleLabel)
+        bottomContainer.addSubview(bottomLabel)
+        let stackView = UIStackView(arrangedSubviews: [topLabel, middleContainer, bottomContainer], spacing: 8)
+        contentView.addSubview(stackView)
         
-        let margin: Double = 16
-        topLabel.horizontalAnchors == contentView.horizontalAnchors + margin
-        topLabel.topAnchor == contentView.topAnchor + margin
-        middleLabel.leadingAnchor == contentView.leadingAnchor + margin * 2.5
-        middleLabel.trailingAnchor == contentView.trailingAnchor + margin
-        middleLabel.topAnchor == topLabel.bottomAnchor + margin / 2
-        bottomLabel.horizontalAnchors == middleLabel.horizontalAnchors
-        bottomLabel.topAnchor == middleLabel.bottomAnchor + margin / 2
-        bottomLabel.bottomAnchor == contentView.bottomAnchor - margin
+        [topLabel, middleLabel, bottomLabel].forEach { $0.font = .systemFont(ofSize: 22) }
+        
+        stackView.edgeAnchors == contentView.edgeAnchors + 16
+        
+        middleLabel.leadingAnchor == middleContainer.leadingAnchor + 24
+        middleLabel.trailingAnchor == middleContainer.trailingAnchor
+        middleLabel.verticalAnchors == middleContainer.verticalAnchors
+        
+        bottomLabel.leadingAnchor == bottomContainer.leadingAnchor + 24
+        bottomLabel.trailingAnchor == bottomContainer.trailingAnchor
+        bottomLabel.verticalAnchors == bottomContainer.verticalAnchors
     }
     
-    func configure(topText: String, middleText: String, bottomText: String) {
+    func configure(topText: String, middleText: String?, bottomText: String?) {
         topLabel.text = topText
         middleLabel.text = middleText
         bottomLabel.text = bottomText
+        
+        middleContainer.isHidden = middleText == nil
+        bottomContainer.isHidden = bottomText ==  nil
     }
 }
