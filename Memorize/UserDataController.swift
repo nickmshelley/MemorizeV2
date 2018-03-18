@@ -163,8 +163,22 @@ extension UserDataController {
         }
     }
     
-    func allCards() throws -> [Card] {
-        return try db.prepareRowIterator(CardTable.table.order(CardTable.question)).map { try CardTable.fromRow($0) }
+    func allCards() -> [Card] {
+        do {
+            return try db.prepareRowIterator(CardTable.table.order(CardTable.question)).map { try CardTable.fromRow($0) }
+        } catch {
+            print("Failed to retrieve cards:", error)
+            return []
+        }
+    }
+    
+    func reviewingCards() -> [Card] {
+        do {
+            return try db.prepareRowIterator(CardTable.table.filter(CardTable.isReviewing == true).order(CardTable.question)).map { try CardTable.fromRow($0) }
+        } catch {
+            print("Failed to retrieve cards:", error)
+            return []
+        }
     }
     
     func createCard(id: String = NSUUID().uuidString, question: String, answer: String, isReviewing: Bool = false, normalSuccessCount: Int = 0, reverseSuccessCount: Int = 0, normalNextReviewDate: Date? = nil, reverseNextReviewDate: Date? = nil) throws {

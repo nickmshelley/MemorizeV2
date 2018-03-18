@@ -7,6 +7,7 @@
 
 import XCTest
 
-class MemorizeUITests: XCTestCase {
-    
-}
+//class MemorizeUITests: XCTestCase {
+//
+//}
+

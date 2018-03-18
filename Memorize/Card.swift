@@ -17,3 +17,27 @@ struct Card {
     let normalNextReviewDate: Date?
     let reverseNextReviewDate: Date?
 }
+
+extension Card {
+    func needsNormalReview() -> Bool {
+        guard let nextReview = normalNextReviewDate else { return false }
+        return Date() >= nextReview
+    }
+    
+    func needsReverseReview() -> Bool {
+        guard let nextReview = reverseNextReviewDate else { return false }
+        return Date() >= nextReview
+    }
+    
+    func normalDayDifference() -> Int {
+        return dayDifference(successCount: normalSuccessCount)
+    }
+    
+    func reverseDayDifference() -> Int {
+        return dayDifference(successCount: reverseSuccessCount)
+    }
+    
+    private func dayDifference(successCount: Int) -> Int {
+        return max(1, min(100, Int(pow(Double(successCount), 2))))
+    }
+}
