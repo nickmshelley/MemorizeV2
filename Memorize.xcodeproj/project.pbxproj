@@ -18,6 +18,8 @@
 		3211FCF9204EDA8600B38B72 /* cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 3211FCF8204EDA8600B38B72 /* cards.json */; };
 		324F44A5205D64B2004F5B16 /* StatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324F44A4205D64B2004F5B16 /* StatCell.swift */; };
 		32513CB720558881007D4A22 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32513CB620558881007D4A22 /* StatsViewModel.swift */; };
+		3262EB8D2067EBB00035F28D /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3262EB8C2067EBB00035F28D /* Stats.swift */; };
+		3262EB8F2067EBBB0035F28D /* StatsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3262EB8E2067EBBB0035F28D /* StatsInfo.swift */; };
 		32DBBFFF2040C49300D14A31 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DBBFFE2040C49300D14A31 /* Card.swift */; };
 		32DBC0012040C68C00D14A31 /* UserDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DBC0002040C68C00D14A31 /* UserDataController.swift */; };
 		32EAE316205EB51C00C1D40B /* CardModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EAE315205EB51C00C1D40B /* CardModelTests.swift */; };
@@ -86,6 +88,8 @@
 		3211FCF8204EDA8600B38B72 /* cards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cards.json; sourceTree = "<group>"; };
 		324F44A4205D64B2004F5B16 /* StatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCell.swift; sourceTree = "<group>"; };
 		32513CB620558881007D4A22 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
+		3262EB8C2067EBB00035F28D /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		3262EB8E2067EBBB0035F28D /* StatsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsInfo.swift; sourceTree = "<group>"; };
 		32DBBFFE2040C49300D14A31 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		32DBC0002040C68C00D14A31 /* UserDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataController.swift; sourceTree = "<group>"; };
 		32EAE315205EB51C00C1D40B /* CardModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModelTests.swift; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 				36393A99200976E200C95347 /* StatsViewController.swift */,
 				324F44A4205D64B2004F5B16 /* StatCell.swift */,
 				32513CB620558881007D4A22 /* StatsViewModel.swift */,
+				3262EB8C2067EBB00035F28D /* Stats.swift */,
+				3262EB8E2067EBBB0035F28D /* StatsInfo.swift */,
 				36393A9B2009771300C95347 /* SettingsViewController.swift */,
 				36393AA12009777900C95347 /* SettingsViewController.xib */,
 				32DBBFFE2040C49300D14A31 /* Card.swift */,
@@ -375,8 +381,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				32DBC0012040C68C00D14A31 /* UserDataController.swift in Sources */,
+				3262EB8F2067EBBB0035F28D /* StatsInfo.swift in Sources */,
 				36393A982009758D00C95347 /* CardsViewController.swift in Sources */,
 				36393A562009584E00C95347 /* AppCoordinator.swift in Sources */,
+				3262EB8D2067EBB00035F28D /* Stats.swift in Sources */,
 				32DBBFFF2040C49300D14A31 /* Card.swift in Sources */,
 				36393A58200958F200C95347 /* ReviewViewController.swift in Sources */,
 				36393A9A200976E200C95347 /* StatsViewController.swift in Sources */,
