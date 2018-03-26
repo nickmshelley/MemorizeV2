@@ -16,7 +16,6 @@ class StatsViewModelTests: XCTestCase {
         
         XCTAssertEqual(stats.totalCards, 15)
         XCTAssertEqual(stats.totalReviewing, 5)
-        XCTAssertEqual(stats.totalNotReviewing, 10)
     }
     
     func testReadyToReview() {

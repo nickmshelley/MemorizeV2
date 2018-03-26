@@ -24,7 +24,6 @@ struct StatsViewModel {
     func stats(from cards: [Card]) -> Stats {
         let total = cards.count
         let reviewing = cards.filter { $0.isReviewing }.count
-        let notReviewing = total - reviewing
         let normalReadyToReview = cards.filter { $0.needsNormalReview() }.count
         let reverseReadyToReview = cards.filter { $0.needsReverseReview() }.count
         
@@ -74,7 +73,6 @@ struct StatsViewModel {
         
         return Stats(totalCards: total,
                      totalReviewing: reviewing,
-                     totalNotReviewing: notReviewing,
                      normalReadyToReview: normalReadyToReview,
                      reverseReadyToReview: reverseReadyToReview,
                      normalAveragePerDay: normalAveragePerDay,

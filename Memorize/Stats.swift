@@ -10,7 +10,6 @@ import Foundation
 struct Stats {
     let totalCards: Int
     let totalReviewing: Int
-    let totalNotReviewing: Int
     let normalReadyToReview: Int
     let reverseReadyToReview: Int
     let normalAveragePerDay: Double

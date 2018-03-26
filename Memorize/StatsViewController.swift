@@ -29,16 +29,25 @@ class StatsViewController: UITableViewController {
         tableView.register(StatCell.self, forCellReuseIdentifier: "Cell")
         tableView.allowsSelection = false
         
-        do {
-            let cards = try UserDataController.shared?.allCards() ?? []
-            let stats = viewModel.stats(from: cards)
-            let row = Row(topText: "Total Cards: \(stats.totalCards)",
-                middleText: "Reviewing: \(stats.totalReviewing)",
-                bottomText: "Not Reviewing: \(stats.totalNotReviewing)")
-            sections = [Section(title: "Totals", rows: [row])]
-        } catch {
-            print("Couldn't load cards.")
+        let cards = UserDataController.shared?.allCards() ?? []
+        let stats = viewModel.stats(from: cards)
+        let totalRow = Row(topText: "Total Cards: \(stats.totalCards)", middleText: nil, bottomText: nil)
+        let reviewingRow = Row(topText: "Reviewing: \(stats.totalReviewing)",
+            middleText: "Normal Ready: \(stats.normalReadyToReview)",
+            bottomText: "Reverse Ready: \(stats.reverseReadyToReview)")
+        let averageRow = Row(topText: "Average Per Day:",
+            middleText: "Normal: \(stats.normalAveragePerDay)",
+            bottomText: "Reverse: \(stats.reverseAveragePerDay)")
+        let totalsSection = Section(title: "Totals", rows: [totalRow, reviewingRow, averageRow])
+        
+        let dailyRows = stats.dayStats.map { statsInfo in
+            Row(topText: "Day Difference: \(statsInfo.dayDifference)",
+                middleText: "Normal: \(statsInfo.normalNeedsReview) of \(statsInfo.normalTotal)",
+                bottomText: "Reverse: \(statsInfo.reverseNeedsReview) of \(statsInfo.reverseTotal)")
         }
+        let daysSection = Section(title: "Need Review", rows: dailyRows)
+        
+        sections = [totalsSection, daysSection]
     }
 }
 
