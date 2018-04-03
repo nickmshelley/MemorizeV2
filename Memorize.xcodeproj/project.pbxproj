@@ -16,6 +16,8 @@
 		3211073C2055DA3400BED703 /* Swiftification.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 321107392055DA2A00BED703 /* Swiftification.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3211073E2055DADC00BED703 /* StatsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3211073D2055DADC00BED703 /* StatsViewModelTests.swift */; };
 		3211FCF9204EDA8600B38B72 /* cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 3211FCF8204EDA8600B38B72 /* cards.json */; };
+		323186FD20742B4800F52046 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323186FC20742B4800F52046 /* SettingsController.swift */; };
+		323186FF20742FBA00F52046 /* CardsPerDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323186FE20742FBA00F52046 /* CardsPerDayCell.swift */; };
 		324F44A5205D64B2004F5B16 /* StatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324F44A4205D64B2004F5B16 /* StatCell.swift */; };
 		32513CB720558881007D4A22 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32513CB620558881007D4A22 /* StatsViewModel.swift */; };
 		3262EB8D2067EBB00035F28D /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3262EB8C2067EBB00035F28D /* Stats.swift */; };
@@ -40,7 +42,6 @@
 		36393A982009758D00C95347 /* CardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A972009758D00C95347 /* CardsViewController.swift */; };
 		36393A9A200976E200C95347 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A99200976E200C95347 /* StatsViewController.swift */; };
 		36393A9C2009771300C95347 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A9B2009771300C95347 /* SettingsViewController.swift */; };
-		36393AA22009777900C95347 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36393AA12009777900C95347 /* SettingsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,8 @@
 		321107392055DA2A00BED703 /* Swiftification.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swiftification.framework; path = Carthage/Build/iOS/Swiftification.framework; sourceTree = "<group>"; };
 		3211073D2055DADC00BED703 /* StatsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModelTests.swift; sourceTree = "<group>"; };
 		3211FCF8204EDA8600B38B72 /* cards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cards.json; sourceTree = "<group>"; };
+		323186FC20742B4800F52046 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		323186FE20742FBA00F52046 /* CardsPerDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsPerDayCell.swift; sourceTree = "<group>"; };
 		324F44A4205D64B2004F5B16 /* StatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCell.swift; sourceTree = "<group>"; };
 		32513CB620558881007D4A22 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		3262EB8C2067EBB00035F28D /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
@@ -113,7 +116,6 @@
 		36393A972009758D00C95347 /* CardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewController.swift; sourceTree = "<group>"; };
 		36393A99200976E200C95347 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		36393A9B2009771300C95347 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		36393AA12009777900C95347 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,9 +186,10 @@
 				3262EB8C2067EBB00035F28D /* Stats.swift */,
 				3262EB8E2067EBBB0035F28D /* StatsInfo.swift */,
 				36393A9B2009771300C95347 /* SettingsViewController.swift */,
-				36393AA12009777900C95347 /* SettingsViewController.xib */,
+				323186FE20742FBA00F52046 /* CardsPerDayCell.swift */,
 				32DBBFFE2040C49300D14A31 /* Card.swift */,
 				32DBC0002040C68C00D14A31 /* UserDataController.swift */,
+				323186FC20742B4800F52046 /* SettingsController.swift */,
 				3203EC082043AD64005071C0 /* CardViewerViewController.swift */,
 				3203EC0A2043ADF9005071C0 /* FlippableTextView.swift */,
 				3203EC0C2043AFEA005071C0 /* UIStackView+Helpers.swift */,
@@ -335,7 +338,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36393AA22009777900C95347 /* SettingsViewController.xib in Resources */,
 				3211FCF9204EDA8600B38B72 /* cards.json in Resources */,
 				36393A182009324C00C95347 /* LaunchScreen.storyboard in Resources */,
 				36393A152009324C00C95347 /* Assets.xcassets in Resources */,
@@ -380,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				323186FF20742FBA00F52046 /* CardsPerDayCell.swift in Sources */,
 				32DBC0012040C68C00D14A31 /* UserDataController.swift in Sources */,
 				3262EB8F2067EBBB0035F28D /* StatsInfo.swift in Sources */,
 				36393A982009758D00C95347 /* CardsViewController.swift in Sources */,
@@ -388,6 +391,7 @@
 				32DBBFFF2040C49300D14A31 /* Card.swift in Sources */,
 				36393A58200958F200C95347 /* ReviewViewController.swift in Sources */,
 				36393A9A200976E200C95347 /* StatsViewController.swift in Sources */,
+				323186FD20742B4800F52046 /* SettingsController.swift in Sources */,
 				324F44A5205D64B2004F5B16 /* StatCell.swift in Sources */,
 				36393A0E2009324C00C95347 /* AppDelegate.swift in Sources */,
 				3203EC0B2043ADF9005071C0 /* FlippableTextView.swift in Sources */,
