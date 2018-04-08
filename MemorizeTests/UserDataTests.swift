@@ -62,17 +62,16 @@ class UserDataTests: XCTestCase {
         
         let beforeIDsOne = (1...2).map { _ in createCardWithNextReview(before, successCount: 1, db: db) }.sorted()
         let beforeIDsTwo = (1...2).map { _ in createCardWithNextReview(before, successCount: 2, db: db) }.sorted()
-        let beforeIDsThree = (1...2).map { _ in createCardWithNextReview(before, successCount: 3, db: db) }.sorted()
         
         // Normal
         let normalExpectedOne = [moreBeforeIDsOne[0]]
         let normalExpectedTwo = normalExpectedOne + [moreBeforeIDsTwo[0]]
         let normalExpectedThree = normalExpectedTwo + [moreBeforeIDsThree[0]]
-        let normalExpectedFour = normalExpectedThree + [beforeIDsOne[0]]
-        let normalExpectedFive = normalExpectedFour + [beforeIDsTwo[0]]
-        let normalExpectedSix = normalExpectedFive + [beforeIDsThree[0]]
-        let normalExpectedSeven = normalExpectedSix + [moreBeforeIDsOne[1]]
-        let normalExpectedEight = normalExpectedSeven + [moreBeforeIDsTwo[1]]
+        let normalExpectedFour = normalExpectedThree + [moreBeforeIDsOne[1]]
+        let normalExpectedFive = normalExpectedFour + [moreBeforeIDsTwo[1]]
+        let normalExpectedSix = normalExpectedFive + [moreBeforeIDsThree[1]]
+        let normalExpectedSeven = normalExpectedSix + [beforeIDsOne[0]]
+        let normalExpectedEight = normalExpectedSeven + [beforeIDsTwo[0]]
         
         let normalExpecteds = [normalExpectedOne, normalExpectedTwo, normalExpectedThree, normalExpectedFour, normalExpectedFive, normalExpectedSix, normalExpectedSeven, normalExpectedEight]
         let normalActuals = (1...8).map { db.todaysNormalReviewCards(perDay: $0).map({ $0.id }) }
@@ -83,11 +82,11 @@ class UserDataTests: XCTestCase {
         let reverseExpectedOne = [moreBeforeIDsOne[0]]
         let reverseExpectedTwo = reverseExpectedOne + [moreBeforeIDsTwo[0]]
         let reverseExpectedThree = reverseExpectedTwo + [moreBeforeIDsThree[0]]
-        let reverseExpectedFour = reverseExpectedThree + [beforeIDsOne[0]]
-        let reverseExpectedFive = reverseExpectedFour + [beforeIDsTwo[0]]
-        let reverseExpectedSix = reverseExpectedFive + [beforeIDsThree[0]]
-        let reverseExpectedSeven = reverseExpectedSix + [moreBeforeIDsOne[1]]
-        let reverseExpectedEight = reverseExpectedSeven + [moreBeforeIDsTwo[1]]
+        let reverseExpectedFour = reverseExpectedThree + [moreBeforeIDsOne[1]]
+        let reverseExpectedFive = reverseExpectedFour + [moreBeforeIDsTwo[1]]
+        let reverseExpectedSix = reverseExpectedFive + [moreBeforeIDsThree[1]]
+        let reverseExpectedSeven = reverseExpectedSix + [beforeIDsOne[0]]
+        let reverseExpectedEight = reverseExpectedSeven + [beforeIDsTwo[0]]
         
         let reverseExpecteds = [reverseExpectedOne, reverseExpectedTwo, reverseExpectedThree, reverseExpectedFour, reverseExpectedFive, reverseExpectedSix, reverseExpectedSeven, reverseExpectedEight]
         let reverseActuals = (1...8).map { db.todaysReverseReviewCards(perDay: $0).map({ $0.id }) }

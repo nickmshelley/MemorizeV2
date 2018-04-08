@@ -7,6 +7,7 @@
 
 import Foundation
 import SQLite
+import Swiftification
 
 class UserDataController {
     static let shared = UserDataController(path: UserDataController.databasePath())
@@ -202,11 +203,63 @@ extension UserDataController {
     }
     
     func todaysNormalReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
-        return []
+        let allReady = normalReadyToReviewCards()
+        guard allReady.count > perDay else { return allReady }
+        let sorted = allReady.sorted { card1, card2 in
+            if card1.normalSuccessCount == card2.normalSuccessCount, let nextReview1 = card1.normalNextReviewDate, let nextReview2 = card2.normalNextReviewDate {
+                if nextReview1 == nextReview2 {
+                    return card1.id < card2.id
+                } else {
+                    return nextReview1 < nextReview2
+                }
+            } else {
+                return card1.normalSuccessCount < card2.normalSuccessCount
+            }
+        }
+        let partitioned = sorted.partitioned { $0.normalSuccessCount }
+        
+        var result = [Card]()
+        var currentIndex = 0
+        while result.count < perDay {
+            for day in partitioned {
+                if result.count < perDay, let card = day[safe: currentIndex] {
+                    result.append(card)
+                }
+            }
+            currentIndex += 1
+        }
+        
+        return result
     }
     
     func todaysReverseReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
-        return []
+        let allReady = reverseReadyToReviewCards()
+        guard allReady.count > perDay else { return allReady }
+        let sorted = allReady.sorted { card1, card2 in
+            if card1.reverseSuccessCount == card2.reverseSuccessCount, let nextReview1 = card1.reverseNextReviewDate, let nextReview2 = card2.reverseNextReviewDate {
+                if nextReview1 == nextReview2 {
+                    return card1.id < card2.id
+                } else {
+                    return nextReview1 < nextReview2
+                }
+            } else {
+                return card1.reverseSuccessCount < card2.reverseSuccessCount
+            }
+        }
+        let partitioned = sorted.partitioned { $0.reverseSuccessCount }
+        
+        var result = [Card]()
+        var currentIndex = 0
+        while result.count < perDay {
+            for day in partitioned {
+                if result.count < perDay, let card = day[safe: currentIndex] {
+                    result.append(card)
+                }
+            }
+            currentIndex += 1
+        }
+        
+        return result
     }
     
     @discardableResult
