@@ -181,7 +181,16 @@ extension UserDataController {
         }
     }
     
-    func createCard(id: String = NSUUID().uuidString, question: String, answer: String, isReviewing: Bool = false, normalSuccessCount: Int = 0, reverseSuccessCount: Int = 0, normalNextReviewDate: Date? = nil, reverseNextReviewDate: Date? = nil) throws {
+    func todaysNormalReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
+        return []
+    }
+    
+    func todaysReverseReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
+        return []
+    }
+    
+    @discardableResult
+    func createCard(id: String = NSUUID().uuidString, question: String, answer: String, isReviewing: Bool = false, normalSuccessCount: Int = 0, reverseSuccessCount: Int = 0, normalNextReviewDate: Date? = nil, reverseNextReviewDate: Date? = nil) throws -> String {
         try db.run(CardTable.table.insert(
             CardTable.id <- id,
             CardTable.question <- question,
@@ -192,6 +201,8 @@ extension UserDataController {
             CardTable.normalNextReviewDate <- normalNextReviewDate,
             CardTable.reverseNextReviewDate <- reverseNextReviewDate
         ))
+        
+        return id
     }
 }
 
