@@ -34,6 +34,22 @@ class UserDataTests: XCTestCase {
         XCTAssertEqual(reviewingCards.first?.question, "C")
     }
     
+    func testCardsReadyToReview() {
+        let db = UserDataController(path: nil)!
+        
+        let before = Date().addingTimeInterval(-20)
+        let after = Date().addingTimeInterval(20)
+        
+        let expected = Set((1...3).map { _ in createCardWithNextReview(before, successCount: 3, db: db) })
+        (1...2).forEach { _ in createCardWithNextReview(after, successCount: 3, db: db) }
+        
+        let normalActual = Set(db.normalReadyToReviewCards().map { $0.id })
+        let reverseActual = Set(db.reverseReadyToReviewCards().map { $0.id })
+        
+        XCTAssertEqual(Set(expected), normalActual)
+        XCTAssertEqual(Set(expected), reverseActual)
+    }
+    
     func testTodaysCards() {
         let db = UserDataController(path: nil)!
         
@@ -81,6 +97,7 @@ class UserDataTests: XCTestCase {
 }
 
 extension UserDataTests {
+    @discardableResult
     func createCardWithNextReview(_ nextReview: Date, successCount: Int, db: UserDataController) -> String {
         let id = NSUUID().uuidString
         try! db.createCard(id: id, question: "A", answer: "B", isReviewing: true, normalSuccessCount: successCount, reverseSuccessCount: successCount, normalNextReviewDate: nextReview, reverseNextReviewDate: nextReview)

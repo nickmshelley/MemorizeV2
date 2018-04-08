@@ -181,6 +181,26 @@ extension UserDataController {
         }
     }
     
+    func normalReadyToReviewCards() -> [Card] {
+        do {
+            let now = Date()
+            return try db.prepareRowIterator(CardTable.table.filter(CardTable.isReviewing == true && CardTable.normalNextReviewDate < now)).map { try CardTable.fromRow($0) }
+        } catch {
+            print("Failed to retrieve ready cards:", error)
+            return []
+        }
+    }
+    
+    func reverseReadyToReviewCards() -> [Card] {
+        do {
+            let now = Date()
+            return try db.prepareRowIterator(CardTable.table.filter(CardTable.isReviewing == true && CardTable.reverseNextReviewDate < now)).map { try CardTable.fromRow($0) }
+        } catch {
+            print("Failed to retrieve ready cards:", error)
+            return []
+        }
+    }
+    
     func todaysNormalReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
         return []
     }
