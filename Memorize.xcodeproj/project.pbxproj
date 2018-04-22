@@ -38,7 +38,6 @@
 		36393A522009537400C95347 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36393A492009536900C95347 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		36393A562009584E00C95347 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A552009584E00C95347 /* AppCoordinator.swift */; };
 		36393A58200958F200C95347 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A57200958F200C95347 /* ReviewViewController.swift */; };
-		36393A9620095B9100C95347 /* ReviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36393A9520095B9100C95347 /* ReviewViewController.xib */; };
 		36393A982009758D00C95347 /* CardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A972009758D00C95347 /* CardsViewController.swift */; };
 		36393A9A200976E200C95347 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A99200976E200C95347 /* StatsViewController.swift */; };
 		36393A9C2009771300C95347 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A9B2009771300C95347 /* SettingsViewController.swift */; };
@@ -112,7 +111,6 @@
 		36393A492009536900C95347 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/iOS/SQLite.framework; sourceTree = "<group>"; };
 		36393A552009584E00C95347 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		36393A57200958F200C95347 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
-		36393A9520095B9100C95347 /* ReviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewViewController.xib; sourceTree = "<group>"; };
 		36393A972009758D00C95347 /* CardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewController.swift; sourceTree = "<group>"; };
 		36393A99200976E200C95347 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		36393A9B2009771300C95347 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -178,7 +176,6 @@
 				36393A192009324C00C95347 /* Info.plist */,
 				36393A552009584E00C95347 /* AppCoordinator.swift */,
 				36393A57200958F200C95347 /* ReviewViewController.swift */,
-				36393A9520095B9100C95347 /* ReviewViewController.xib */,
 				36393A972009758D00C95347 /* CardsViewController.swift */,
 				36393A99200976E200C95347 /* StatsViewController.swift */,
 				324F44A4205D64B2004F5B16 /* StatCell.swift */,
@@ -341,7 +338,6 @@
 				3211FCF9204EDA8600B38B72 /* cards.json in Resources */,
 				36393A182009324C00C95347 /* LaunchScreen.storyboard in Resources */,
 				36393A152009324C00C95347 /* Assets.xcassets in Resources */,
-				36393A9620095B9100C95347 /* ReviewViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
