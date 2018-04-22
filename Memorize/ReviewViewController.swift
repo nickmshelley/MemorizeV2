@@ -59,5 +59,7 @@ extension ReviewViewController {
         buttonsStackView.horizontalAnchors == view.safeAreaLayoutGuide.horizontalAnchors + 12
         buttonsStackView.topAnchor == cardViewerViewController.view.bottomAnchor + 12
         buttonsStackView.bottomAnchor == view.safeAreaLayoutGuide.bottomAnchor - 12
+        
+        cardViewerViewController.didMove(toParentViewController: self)
     }
 }
