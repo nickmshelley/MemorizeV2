@@ -16,11 +16,7 @@ class CardsViewController: UITableViewController {
         title = "Cards"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
-        do {
-            cards = try UserDataController.shared?.allCards() ?? []
-        } catch {
-            print("Couldn't load cards.")
-        }
+        cards = UserDataController.shared?.allCards() ?? []
     }
 }
 
@@ -42,6 +38,6 @@ extension CardsViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let card = cards[indexPath.row]
-        navigationController?.pushViewController(CardViewerViewController(card: card), animated: true)
+        navigationController?.pushViewController(CardViewerViewController(question: card.question, answer: card.answer), animated: true)
     }
 }

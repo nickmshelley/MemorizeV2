@@ -34,6 +34,12 @@ class FlippableTextView: UIView {
 }
 
 extension FlippableTextView {
+    func updateText(_ text: String) {
+        textLabel.text = text
+    }
+}
+
+extension FlippableTextView {
     private func configureView() {
         let container = UIView()
         container.addSubview(textLabel)

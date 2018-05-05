@@ -10,7 +10,6 @@ import Anchorage
 import QuartzCore
 
 class CardViewerViewController: UIViewController {
-    private let card: Card
     private let titleLabel = UILabel(frame: .zero)
     private let questionView: FlippableTextView
     private let answerView: FlippableTextView
@@ -18,10 +17,9 @@ class CardViewerViewController: UIViewController {
     private var questionHeightConstraint = NSLayoutConstraint()
     private var answerHeightConstraint = NSLayoutConstraint()
     
-    init(card: Card) {
-        self.card = card
-        questionView = FlippableTextView(text: card.question)
-        answerView = FlippableTextView(text: card.answer)
+    init(question: String, answer: String) {
+        questionView = FlippableTextView(text: question)
+        answerView = FlippableTextView(text: answer)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,6 +41,13 @@ class CardViewerViewController: UIViewController {
         super.viewDidLayoutSubviews()
         questionHeightConstraint.constant = questionView.intrinsicContentSize.height
         answerHeightConstraint.constant = answerView.intrinsicContentSize.height
+    }
+}
+
+extension CardViewerViewController {
+    func updateWith(question: String, answer: String) {
+        questionView.updateText(question)
+        answerView.updateText(answer)
     }
 }
 
