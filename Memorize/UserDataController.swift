@@ -10,7 +10,7 @@ import SQLite
 import Swiftification
 
 class UserDataController {
-    static let shared = UserDataController(path: UserDataController.databasePath())
+    static var shared = UserDataController(path: UserDataController.databasePath())
     
     fileprivate let databaseVersionKey = "databaseVersion"
     

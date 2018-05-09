@@ -2,7 +2,7 @@
 //  StatsViewModelTests.swift
 //  MemorizeTests
 //
-//  Created by Heather Shelley on 3/11/18.
+//  Created by Nick Shelley on 3/11/18.
 //
 
 import XCTest

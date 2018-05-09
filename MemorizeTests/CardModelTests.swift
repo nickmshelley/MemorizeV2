@@ -2,7 +2,7 @@
 //  CardModelTests.swift
 //  MemorizeTests
 //
-//  Created by Heather Shelley on 3/18/18.
+//  Created by Nick Shelley on 3/18/18.
 //
 
 import XCTest
