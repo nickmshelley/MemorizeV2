@@ -14,9 +14,10 @@ class ReviewViewController: UIViewController {
     private let missedButton = UIButton(type: .custom)
     private let undoButton = UIButton(type: .custom)
     private let cardViewerViewController: CardViewerViewController
-    private var cards: [Card] = []
+    private var viewModel: ReviewViewModel
     
     init() {
+        viewModel = ReviewViewModel()
         cardViewerViewController = CardViewerViewController(question: "No cards left to review", answer: "No cards left to review")
         super.init(nibName: nil, bundle: nil)
     }
@@ -35,9 +36,10 @@ class ReviewViewController: UIViewController {
 
 extension ReviewViewController {
     private func updateCard() {
-        if !cards.isEmpty {
-            let card = cards.random()
+        if let card = viewModel.currentCard {
             cardViewerViewController.updateWith(question: card.question, answer: card.answer)
+        } else {
+            cardViewerViewController.updateWith(question: "No cards left to review", answer: "No cards left to review")
         }
     }
 }

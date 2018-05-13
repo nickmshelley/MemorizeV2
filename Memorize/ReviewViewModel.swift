@@ -17,7 +17,7 @@ class ReviewViewModel {
     var isNormal = true
     var remaining = 0
     private var cards: [Card] = []
-    private var currentCard: Card?
+    var currentCard: Card?
     private var undoStack: [UndoObject] = []
     private var previousCard: Card?
     private var normalReviewed: Int {
