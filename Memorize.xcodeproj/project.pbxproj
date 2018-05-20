@@ -23,6 +23,8 @@
 		325E10D520A0953600593C03 /* ReviewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E10D420A0953600593C03 /* ReviewViewModelTests.swift */; };
 		3262EB8D2067EBB00035F28D /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3262EB8C2067EBB00035F28D /* Stats.swift */; };
 		3262EB8F2067EBBB0035F28D /* StatsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3262EB8E2067EBBB0035F28D /* StatsInfo.swift */; };
+		3280278D20B1B8180038C6E8 /* Date+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3280278C20B1B8180038C6E8 /* Date+Helpers.swift */; };
+		3280278F20B1B86A0038C6E8 /* DateHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3280278E20B1B86A0038C6E8 /* DateHelperTests.swift */; };
 		32B13429209E46EA00E32B8F /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B13428209E46EA00E32B8F /* ReviewViewModel.swift */; };
 		32B1342B209E480100E32B8F /* UndoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B1342A209E480100E32B8F /* UndoObject.swift */; };
 		32DBBFFF2040C49300D14A31 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DBBFFE2040C49300D14A31 /* Card.swift */; };
@@ -96,6 +98,8 @@
 		325E10D420A0953600593C03 /* ReviewViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModelTests.swift; sourceTree = "<group>"; };
 		3262EB8C2067EBB00035F28D /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		3262EB8E2067EBBB0035F28D /* StatsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsInfo.swift; sourceTree = "<group>"; };
+		3280278C20B1B8180038C6E8 /* Date+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helpers.swift"; sourceTree = "<group>"; };
+		3280278E20B1B86A0038C6E8 /* DateHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelperTests.swift; sourceTree = "<group>"; };
 		32B13428209E46EA00E32B8F /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		32B1342A209E480100E32B8F /* UndoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoObject.swift; sourceTree = "<group>"; };
 		32DBBFFE2040C49300D14A31 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 				3203EC082043AD64005071C0 /* CardViewerViewController.swift */,
 				3203EC0A2043ADF9005071C0 /* FlippableTextView.swift */,
 				3203EC0C2043AFEA005071C0 /* UIStackView+Helpers.swift */,
+				3280278C20B1B8180038C6E8 /* Date+Helpers.swift */,
 				3211FCF8204EDA8600B38B72 /* cards.json */,
 			);
 			path = Memorize;
@@ -210,6 +215,7 @@
 				36393A222009324C00C95347 /* UserDataTests.swift */,
 				3211073D2055DADC00BED703 /* StatsViewModelTests.swift */,
 				325E10D420A0953600593C03 /* ReviewViewModelTests.swift */,
+				3280278E20B1B86A0038C6E8 /* DateHelperTests.swift */,
 				36393A242009324D00C95347 /* Info.plist */,
 			);
 			path = MemorizeTests;
@@ -396,6 +402,7 @@
 				3262EB8D2067EBB00035F28D /* Stats.swift in Sources */,
 				32DBBFFF2040C49300D14A31 /* Card.swift in Sources */,
 				36393A58200958F200C95347 /* ReviewViewController.swift in Sources */,
+				3280278D20B1B8180038C6E8 /* Date+Helpers.swift in Sources */,
 				36393A9A200976E200C95347 /* StatsViewController.swift in Sources */,
 				323186FD20742B4800F52046 /* SettingsController.swift in Sources */,
 				32B13429209E46EA00E32B8F /* ReviewViewModel.swift in Sources */,
@@ -417,6 +424,7 @@
 				3211073E2055DADC00BED703 /* StatsViewModelTests.swift in Sources */,
 				325E10D520A0953600593C03 /* ReviewViewModelTests.swift in Sources */,
 				36393A232009324C00C95347 /* UserDataTests.swift in Sources */,
+				3280278F20B1B86A0038C6E8 /* DateHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
