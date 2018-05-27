@@ -164,6 +164,10 @@ extension UserDataController {
         }
     }
     
+    func card(withID id: String) throws -> Card? {
+        return try db.pluck(CardTable.table.filter(CardTable.id == id)).map { try CardTable.fromRow($0) }
+    }
+    
     func allCards() -> [Card] {
         do {
             return try db.prepareRowIterator(CardTable.table.order(CardTable.question)).map { try CardTable.fromRow($0) }
@@ -260,6 +264,20 @@ extension UserDataController {
         }
         
         return result
+    }
+    
+    func updateNormalReview(ofCardWithID id: String, nextReview: Date, successCount: Int) throws {
+        try db.run(CardTable.table.filter(CardTable.id == id).update(
+            CardTable.normalNextReviewDate <- nextReview,
+            CardTable.normalSuccessCount <- successCount
+        ))
+    }
+    
+    func updateReverseReview(ofCardWithID id: String, nextReview: Date, successCount: Int) throws {
+        try db.run(CardTable.table.filter(CardTable.id == id).update(
+            CardTable.reverseNextReviewDate <- nextReview,
+            CardTable.reverseSuccessCount <- successCount
+        ))
     }
     
     @discardableResult

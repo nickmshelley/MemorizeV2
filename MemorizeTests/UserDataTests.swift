@@ -93,6 +93,24 @@ class UserDataTests: XCTestCase {
         
         XCTAssertEqual(reverseExpecteds, reverseActuals)
     }
+    
+    func testUpdate() {
+        let db = UserDataController(path: nil)!
+        let needsReview = Date().addingTimeInterval(-50)
+        
+        let date1 = Date().addingTimeInterval(30)
+        let date2 = Date().addingTimeInterval(100)
+        
+        let id = createCardWithNextReview(needsReview, successCount: 1, db: db)
+        try! db.updateNormalReview(ofCardWithID: id, nextReview: date1, successCount: 5)
+        try! db.updateReverseReview(ofCardWithID: id, nextReview: date2, successCount: 8)
+        
+        let card = try! db.card(withID: id)!
+        XCTAssertEqual(card.normalSuccessCount, 5)
+        XCTAssertEqual(card.normalNextReviewDate!.timeIntervalSince1970, date1.timeIntervalSince1970, accuracy: 0.001)
+        XCTAssertEqual(card.reverseSuccessCount, 8)
+        XCTAssertEqual(card.reverseNextReviewDate!.timeIntervalSince1970, date2.timeIntervalSince1970, accuracy: 0.001)
+    }
 }
 
 extension UserDataTests {
