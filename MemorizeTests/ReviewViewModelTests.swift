@@ -49,7 +49,6 @@ class ReviewViewModelTests: XCTestCase {
         vm.correct()
         XCTAssertFalse(vm.isNormal)
         XCTAssertEqual(vm.remaining, 2)
-        XCTAssertNotEqual(vm.currentCard!.id, beforeID)
         XCTAssertFalse(UserDataController.shared!.normalReadyToReviewCards().contains { $0.id == beforeID })
         
         beforeID = vm.currentCard!.id
@@ -57,13 +56,12 @@ class ReviewViewModelTests: XCTestCase {
         XCTAssertEqual(vm.remaining, 1)
         XCTAssertNotEqual(vm.currentCard!.id, beforeID)
         XCTAssertFalse(UserDataController.shared!.reverseReadyToReviewCards().contains { $0.id == beforeID })
-        
+
         beforeID = vm.currentCard!.id
         vm.correct()
         XCTAssertEqual(vm.remaining, 0)
-        XCTAssertNotEqual(vm.currentCard!.id, beforeID)
         XCTAssertFalse(UserDataController.shared!.reverseReadyToReviewCards().contains { $0.id == beforeID })
-        
+
         XCTAssertNil(vm.currentCard)
     }
 }

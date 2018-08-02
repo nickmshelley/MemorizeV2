@@ -45,11 +45,18 @@ class ReviewViewModel {
 extension ReviewViewModel {
     func correct() {
         guard let currentCard = currentCard else { return }
+        
         if isNormal {
             let nextDate = Calendar.current.date(byAdding: .day, value: currentCard.normalDayDifference(), to: DateHelpers.threeAM())!
             try! UserDataController.shared?.updateNormalReview(ofCardWithID: currentCard.id, nextReview: nextDate, successCount: currentCard.normalSuccessCount + 1)
-            
+        } else {
+            let nextDate = Calendar.current.date(byAdding: .day, value: currentCard.reverseDayDifference(), to: DateHelpers.threeAM())!
+            try! UserDataController.shared?.updateReverseReview(ofCardWithID: currentCard.id, nextReview: nextDate, successCount: currentCard.reverseSuccessCount + 1)
         }
+        
+        cards.remove(at: cards.index(of: currentCard)!)
+        remaining -= 1
+        updateCurrentCard()
     }
 }
 
@@ -75,5 +82,11 @@ private extension ReviewViewModel {
         
         previousCard = currentCard
         currentCard = cards.random()
+        
+        if cards.count > 1 {
+            while currentCard == previousCard {
+                currentCard = cards.random()
+            }
+        }
     }
 }
