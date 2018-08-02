@@ -76,16 +76,4 @@ extension ReviewViewModelTests {
         
         return id
     }
-    
-    private func verifyCorrect(viewModel vm: ReviewViewModel) {
-        let beforeRemaining = vm.remaining
-        let beforeID = vm.currentCard!.id
-        let isNormal = vm.isNormal
-        vm.correct()
-        
-        XCTAssertEqual(vm.remaining, beforeRemaining - 1)
-        XCTAssertNotEqual(vm.currentCard!.id, beforeID)
-        let newReviewing = UserDataController.shared!.reviewingCards()
-        XCTAssertFalse(newReviewing.contains { $0.id == beforeID })
-    }
 }

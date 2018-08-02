@@ -10,9 +10,9 @@ import XCTest
 
 class DateHelperTests: XCTestCase {
     func testThreeAMToday() {
-        let testDate1 = Date.threeAMToday()
+        let testDate1 = DateHelpers.threeAM()
         sleep(5)
-        let testDate2 = Date.threeAMToday()
+        let testDate2 = DateHelpers.threeAM()
         
         XCTAssertEqual(testDate1, testDate2)
         

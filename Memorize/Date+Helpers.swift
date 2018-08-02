@@ -7,9 +7,8 @@
 
 import Foundation
 
-extension Date {
-    static func threeAMToday() -> Date {
-        let date = Date()
+struct DateHelpers {
+    static func threeAM(for date: Date = Date()) -> Date {
         let calendar = Calendar.autoupdatingCurrent
         guard let hour = calendar.dateComponents([.hour], from: date).hour else { return date }
         let secondsToSubtract = hour < 3 ? 60 * 60 * 24 : 0

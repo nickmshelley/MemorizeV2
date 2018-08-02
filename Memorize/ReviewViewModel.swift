@@ -43,6 +43,17 @@ class ReviewViewModel {
 }
 
 extension ReviewViewModel {
+    func correct() {
+        guard let currentCard = currentCard else { return }
+        if isNormal {
+            let nextDate = Calendar.current.date(byAdding: .day, value: currentCard.normalDayDifference(), to: DateHelpers.threeAM())!
+            try! UserDataController.shared?.updateNormalReview(ofCardWithID: currentCard.id, nextReview: nextDate, successCount: currentCard.normalSuccessCount + 1)
+            
+        }
+    }
+}
+
+private extension ReviewViewModel {
     private func refreshCards() {
         cards = UserDataController.shared?.normalReadyToReviewCards() ?? []
         if cards.isEmpty {
