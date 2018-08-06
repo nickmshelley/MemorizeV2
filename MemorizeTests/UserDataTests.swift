@@ -105,11 +105,18 @@ class UserDataTests: XCTestCase {
         try! db.updateNormalReview(ofCardWithID: id, nextReview: date1, successCount: 5)
         try! db.updateReverseReview(ofCardWithID: id, nextReview: date2, successCount: 8)
         
-        let card = try! db.card(withID: id)!
+        var card = try! db.card(withID: id)!
         XCTAssertEqual(card.normalSuccessCount, 5)
         XCTAssertEqual(card.normalNextReviewDate!.timeIntervalSince1970, date1.timeIntervalSince1970, accuracy: 0.001)
         XCTAssertEqual(card.reverseSuccessCount, 8)
         XCTAssertEqual(card.reverseNextReviewDate!.timeIntervalSince1970, date2.timeIntervalSince1970, accuracy: 0.001)
+        
+        try! db.updateNormalReviewMissed(ofCardWithID: id)
+        try! db.updateReverseReviewMissed(ofCardWithID: id)
+        
+        card = try! db.card(withID: id)!
+        XCTAssertEqual(card.normalSuccessCount, 0)
+        XCTAssertEqual(card.reverseSuccessCount, 0)
     }
 }
 

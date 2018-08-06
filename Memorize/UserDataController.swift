@@ -266,6 +266,18 @@ extension UserDataController {
         return result
     }
     
+    func updateNormalReviewMissed(ofCardWithID id: String) throws {
+        try db.run(CardTable.table.filter(CardTable.id == id).update(
+            CardTable.normalSuccessCount <- 0
+        ))
+    }
+    
+    func updateReverseReviewMissed(ofCardWithID id: String) throws {
+        try db.run(CardTable.table.filter(CardTable.id == id).update(
+            CardTable.reverseSuccessCount <- 0
+        ))
+    }
+    
     func updateNormalReview(ofCardWithID id: String, nextReview: Date, successCount: Int) throws {
         try db.run(CardTable.table.filter(CardTable.id == id).update(
             CardTable.normalNextReviewDate <- nextReview,

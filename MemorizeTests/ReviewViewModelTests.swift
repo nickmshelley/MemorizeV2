@@ -64,6 +64,33 @@ class ReviewViewModelTests: XCTestCase {
 
         XCTAssertNil(vm.currentCard)
     }
+    
+    func testMissed() {
+        UserDataController.shared = UserDataController(path: nil)
+        let needsReview = Date().addingTimeInterval(-50)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview)
+        
+        let vm = ReviewViewModel()
+        XCTAssertTrue(vm.isNormal)
+        XCTAssertEqual(vm.remaining, 2)
+        
+        var missed = UserDataController.shared!.normalReadyToReviewCards().filter { $0.normalSuccessCount == 0 }
+        XCTAssertEqual(missed.count, 0)
+        
+        vm.missed()
+        vm.missed()
+        
+        missed = UserDataController.shared!.normalReadyToReviewCards().filter { $0.normalSuccessCount == 0 }
+        XCTAssertEqual(missed.count, 2)
+        
+        var beforeID = vm.currentCard!.id
+        for _ in 1...100 {
+            vm.missed()
+            XCTAssertNotEqual(vm.currentCard!.id, beforeID)
+            beforeID = vm.currentCard!.id
+        }
+    }
 }
 
 extension ReviewViewModelTests {

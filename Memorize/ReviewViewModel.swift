@@ -58,6 +58,18 @@ extension ReviewViewModel {
         remaining -= 1
         updateCurrentCard()
     }
+    
+    func missed() {
+        guard let currentCard = currentCard else { return }
+        
+        if isNormal {
+            try! UserDataController.shared?.updateNormalReviewMissed(ofCardWithID: currentCard.id)
+        } else {
+            try! UserDataController.shared?.updateReverseReviewMissed(ofCardWithID: currentCard.id)
+        }
+        
+        updateCurrentCard()
+    }
 }
 
 private extension ReviewViewModel {
