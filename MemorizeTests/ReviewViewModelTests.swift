@@ -34,6 +34,7 @@ class ReviewViewModelTests: XCTestCase {
         let needsReview = Date().addingTimeInterval(-50)
         createCard(normalNextReview: needsReview, reverseNextReview: needsReview)
         createCard(normalNextReview: needsReview, reverseNextReview: needsReview)
+        let nextDate = DateHelpers.threeAM().addingTimeInterval(24 * 60 * 60)
         
         let vm = ReviewViewModel()
         XCTAssertTrue(vm.isNormal)
@@ -44,23 +45,31 @@ class ReviewViewModelTests: XCTestCase {
         XCTAssertEqual(vm.remaining, 1)
         XCTAssertNotEqual(vm.currentCard!.id, beforeID)
         XCTAssertFalse(UserDataController.shared!.normalReadyToReviewCards().contains { $0.id == beforeID })
+        var card = try! UserDataController.shared?.card(withID: beforeID)
+        XCTAssertEqual(nextDate.timeIntervalSince1970, card!.normalNextReviewDate!.timeIntervalSince1970, accuracy: 0.001)
         
         beforeID = vm.currentCard!.id
         vm.correct()
         XCTAssertFalse(vm.isNormal)
         XCTAssertEqual(vm.remaining, 2)
         XCTAssertFalse(UserDataController.shared!.normalReadyToReviewCards().contains { $0.id == beforeID })
+        card = try! UserDataController.shared?.card(withID: beforeID)
+        XCTAssertEqual(nextDate.timeIntervalSince1970, card!.normalNextReviewDate!.timeIntervalSince1970, accuracy: 0.001)
         
         beforeID = vm.currentCard!.id
         vm.correct()
         XCTAssertEqual(vm.remaining, 1)
         XCTAssertNotEqual(vm.currentCard!.id, beforeID)
         XCTAssertFalse(UserDataController.shared!.reverseReadyToReviewCards().contains { $0.id == beforeID })
+        card = try! UserDataController.shared?.card(withID: beforeID)
+        XCTAssertEqual(nextDate.timeIntervalSince1970, card!.reverseNextReviewDate!.timeIntervalSince1970, accuracy: 0.001)
 
         beforeID = vm.currentCard!.id
         vm.correct()
         XCTAssertEqual(vm.remaining, 0)
         XCTAssertFalse(UserDataController.shared!.reverseReadyToReviewCards().contains { $0.id == beforeID })
+        card = try! UserDataController.shared?.card(withID: beforeID)
+        XCTAssertEqual(nextDate.timeIntervalSince1970, card!.reverseNextReviewDate!.timeIntervalSince1970, accuracy: 0.001)
 
         XCTAssertNil(vm.currentCard)
     }
