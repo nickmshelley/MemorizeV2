@@ -101,6 +101,19 @@ class ReviewViewModelTests: XCTestCase {
         }
     }
     
+    func testMissedThenCorrect() {
+        UserDataController.shared = UserDataController(path: nil)
+        let needsReview = Date().addingTimeInterval(-50)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview, successCount: 3)
+        let vm = ReviewViewModel()
+        let nextDate = DateHelpers.threeAM().addingTimeInterval(24 * 60 * 60)
+        
+        vm.missed()
+        vm.correct()
+        let card = UserDataController.shared?.allCards().first!
+        XCTAssertEqual(card?.normalNextReviewDate!, nextDate)
+    }
+    
     func testUndo() {
         UserDataController.shared = UserDataController(path: nil)
         let needsReview = Date().addingTimeInterval(-50)
@@ -121,9 +134,9 @@ class ReviewViewModelTests: XCTestCase {
 
 extension ReviewViewModelTests {
     @discardableResult
-    func createCard(normalNextReview: Date, reverseNextReview: Date) -> String {
+    func createCard(normalNextReview: Date, reverseNextReview: Date, successCount: Int = 1) -> String {
         let id = NSUUID().uuidString
-        try! UserDataController.shared!.createCard(id: id, question: "A", answer: "B", isReviewing: true, normalSuccessCount: 1, reverseSuccessCount: 1, normalNextReviewDate: normalNextReview, reverseNextReviewDate: reverseNextReview)
+        try! UserDataController.shared!.createCard(id: id, question: "A", answer: "B", isReviewing: true, normalSuccessCount: successCount, reverseSuccessCount: successCount, normalNextReviewDate: normalNextReview, reverseNextReviewDate: reverseNextReview)
         
         return id
     }

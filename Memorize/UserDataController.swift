@@ -266,30 +266,42 @@ extension UserDataController {
         return result
     }
     
-    func updateNormalReviewMissed(ofCardWithID id: String) throws {
+    @discardableResult
+    func updateNormalReviewMissed(ofCardWithID id: String) throws -> Card {
         try db.run(CardTable.table.filter(CardTable.id == id).update(
             CardTable.normalSuccessCount <- 0
         ))
+        
+        return try card(withID: id)!
     }
     
-    func updateReverseReviewMissed(ofCardWithID id: String) throws {
+    @discardableResult
+    func updateReverseReviewMissed(ofCardWithID id: String) throws -> Card {
         try db.run(CardTable.table.filter(CardTable.id == id).update(
             CardTable.reverseSuccessCount <- 0
         ))
+        
+        return try card(withID: id)!
     }
     
-    func updateNormalReview(ofCardWithID id: String, nextReview: Date, successCount: Int) throws {
+    @discardableResult
+    func updateNormalReview(ofCardWithID id: String, nextReview: Date, successCount: Int) throws -> Card {
         try db.run(CardTable.table.filter(CardTable.id == id).update(
             CardTable.normalNextReviewDate <- nextReview,
             CardTable.normalSuccessCount <- successCount
         ))
+        
+        return try card(withID: id)!
     }
     
-    func updateReverseReview(ofCardWithID id: String, nextReview: Date, successCount: Int) throws {
+    @discardableResult
+    func updateReverseReview(ofCardWithID id: String, nextReview: Date, successCount: Int) throws -> Card {
         try db.run(CardTable.table.filter(CardTable.id == id).update(
             CardTable.reverseNextReviewDate <- nextReview,
             CardTable.reverseSuccessCount <- successCount
         ))
+        
+        return try card(withID: id)!
     }
     
     @discardableResult

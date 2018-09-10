@@ -66,12 +66,15 @@ extension ReviewViewModel {
         
         undoStack.append(UndoObject(card: currentCard, correct: false, isNormal: isNormal))
         
+        let updatedCard: Card
         if isNormal {
-            try! UserDataController.shared?.updateNormalReviewMissed(ofCardWithID: currentCard.id)
+            updatedCard = try! UserDataController.shared!.updateNormalReviewMissed(ofCardWithID: currentCard.id)
         } else {
-            try! UserDataController.shared?.updateReverseReviewMissed(ofCardWithID: currentCard.id)
+            updatedCard = try! UserDataController.shared!.updateReverseReviewMissed(ofCardWithID: currentCard.id)
         }
         
+        cards.remove(at: cards.index(of: currentCard)!)
+        cards.append(updatedCard)
         updateCurrentCard()
     }
     
@@ -106,7 +109,7 @@ private extension ReviewViewModel {
         currentCard = cards.random()
         
         if cards.count > 1 {
-            while currentCard == previousCard {
+            while currentCard?.id == previousCard?.id {
                 currentCard = cards.random()
             }
         }
