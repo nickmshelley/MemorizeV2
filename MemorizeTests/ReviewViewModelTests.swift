@@ -100,6 +100,23 @@ class ReviewViewModelTests: XCTestCase {
             beforeID = vm.currentCard!.id
         }
     }
+    
+    func testUndo() {
+        UserDataController.shared = UserDataController(path: nil)
+        let needsReview = Date().addingTimeInterval(-50)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview)
+        let vm = ReviewViewModel()
+        let originalCards = UserDataController.shared?.allCards()
+        
+        let beforeCard = vm.currentCard
+        vm.missed()
+        let afterCard = try! UserDataController.shared?.card(withID: beforeCard!.id)
+        XCTAssertNotEqual(beforeCard!, afterCard!)
+        vm.undo()
+        let undoCard = try! UserDataController.shared?.card(withID: beforeCard!.id)
+        XCTAssertEqual(beforeCard!, undoCard!)
+    }
 }
 
 extension ReviewViewModelTests {

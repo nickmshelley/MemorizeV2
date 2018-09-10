@@ -10,4 +10,5 @@ import Foundation
 struct UndoObject {
     let card: Card
     let correct: Bool
+    let isNormal: Bool
 }

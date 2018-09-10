@@ -46,6 +46,8 @@ extension ReviewViewModel {
     func correct() {
         guard let currentCard = currentCard else { return }
         
+        undoStack.append(UndoObject(card: currentCard, correct: true, isNormal: isNormal))
+        
         if isNormal {
             let nextDate = Calendar.current.date(byAdding: .day, value: currentCard.normalDayDifference(), to: DateHelpers.threeAM())!
             try! UserDataController.shared?.updateNormalReview(ofCardWithID: currentCard.id, nextReview: nextDate, successCount: currentCard.normalSuccessCount + 1)
@@ -62,6 +64,8 @@ extension ReviewViewModel {
     func missed() {
         guard let currentCard = currentCard else { return }
         
+        undoStack.append(UndoObject(card: currentCard, correct: false, isNormal: isNormal))
+        
         if isNormal {
             try! UserDataController.shared?.updateNormalReviewMissed(ofCardWithID: currentCard.id)
         } else {
@@ -69,6 +73,12 @@ extension ReviewViewModel {
         }
         
         updateCurrentCard()
+    }
+    
+    func undo() {
+        guard let undoObject = undoStack.popLast() else { return }
+        
+        
     }
 }
 
