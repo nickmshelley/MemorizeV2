@@ -114,21 +114,118 @@ class ReviewViewModelTests: XCTestCase {
         XCTAssertEqual(card?.normalNextReviewDate!, nextDate)
     }
     
+    func testUndoSingle() {
+        UserDataController.shared = UserDataController(path: nil)
+        let dc = UserDataController.shared
+        let needsReview = Date().addingTimeInterval(-50)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview, successCount: 3)
+        let vm = ReviewViewModel()
+        let originalCard = vm.currentCard!
+        let nextDate = DateHelpers.threeAM().addingTimeInterval(24 * 60 * 60 * 9)
+        
+        vm.correct()
+        XCTAssertEqual(try! dc?.card(withID: originalCard.id)?.normalNextReviewDate, nextDate)
+        XCTAssertFalse(vm.isNormal)
+        vm.undo()
+        XCTAssertEqual(vm.currentCard, originalCard)
+        XCTAssertEqual(try! dc?.card(withID: originalCard.id), originalCard)
+        XCTAssertTrue(vm.isNormal)
+        
+        vm.missed()
+        XCTAssertEqual(try! dc?.card(withID: originalCard.id)?.normalSuccessCount, 0)
+        vm.undo()
+        XCTAssertEqual(vm.currentCard, originalCard)
+        XCTAssertEqual(try! dc?.card(withID: originalCard.id), originalCard)
+        
+        vm.correct()
+        vm.correct()
+        var card = try! dc?.card(withID: originalCard.id)
+        XCTAssertEqual(vm.remaining, 0)
+        XCTAssertEqual(card?.normalNextReviewDate, nextDate)
+        XCTAssertEqual(card?.reverseNextReviewDate, nextDate)
+        XCTAssertEqual(card?.normalSuccessCount, 4)
+        XCTAssertEqual(card?.reverseSuccessCount, 4)
+        vm.undo()
+        card = try! dc?.card(withID: originalCard.id)
+        XCTAssertEqual(card?.normalNextReviewDate, nextDate)
+        XCTAssertEqual(card?.reverseNextReviewDate, originalCard.reverseNextReviewDate)
+        XCTAssertEqual(card?.normalSuccessCount, 4)
+        XCTAssertEqual(card?.reverseSuccessCount, 3)
+        XCTAssertEqual(vm.remaining, 1)
+        XCTAssertFalse(vm.isNormal)
+        vm.undo()
+        XCTAssertEqual(vm.currentCard, originalCard)
+        XCTAssertEqual(try! dc?.card(withID: originalCard.id), originalCard)
+        XCTAssertEqual(vm.remaining, 1)
+        XCTAssertTrue(vm.isNormal)
+    }
+    
     func testUndo() {
         UserDataController.shared = UserDataController(path: nil)
         let needsReview = Date().addingTimeInterval(-50)
-        createCard(normalNextReview: needsReview, reverseNextReview: needsReview)
-        createCard(normalNextReview: needsReview, reverseNextReview: needsReview)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview, successCount: 3)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview, successCount: 3)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview, successCount: 3)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview, successCount: 3)
         let vm = ReviewViewModel()
         let originalCards = UserDataController.shared?.allCards()
+        let originalDate = originalCards?.first?.normalNextReviewDate
+        let nextDateMissed = DateHelpers.threeAM().addingTimeInterval(24 * 60 * 60)
         
-        let beforeCard = vm.currentCard
-        vm.missed()
-        let afterCard = try! UserDataController.shared?.card(withID: beforeCard!.id)
-        XCTAssertNotEqual(beforeCard!, afterCard!)
-        vm.undo()
-        let undoCard = try! UserDataController.shared?.card(withID: beforeCard!.id)
-        XCTAssertEqual(beforeCard!, undoCard!)
+        var ids: [String] = []
+        // normal
+        for _ in 1...100 {
+            ids.append(vm.currentCard!.id)
+            vm.missed()
+        }
+        var remaining = 4
+        for _ in 1...4 {
+            ids.append(vm.currentCard!.id)
+            XCTAssertEqual(vm.remaining, remaining)
+            vm.correct()
+            remaining -= 1
+        }
+        XCTAssertEqual(vm.remaining, 4)
+        XCTAssertFalse(vm.isNormal)
+        
+        // reverse
+        for _ in 1...100 {
+            ids.append(vm.currentCard!.id)
+            vm.missed()
+        }
+        remaining = 4
+        for _ in 1...4 {
+            ids.append(vm.currentCard!.id)
+            XCTAssertEqual(vm.remaining, remaining)
+            vm.correct()
+            remaining -= 1
+        }
+        XCTAssertEqual(vm.remaining, 0)
+        
+        var cards = UserDataController.shared?.allCards()
+        XCTAssertFalse(cards!.contains(where: { $0.normalNextReviewDate != nextDateMissed }))
+        XCTAssertFalse(cards!.contains(where: { $0.reverseNextReviewDate != nextDateMissed }))
+        XCTAssertFalse(cards!.contains(where: { $0.normalSuccessCount != 1 }))
+        XCTAssertFalse(cards!.contains(where: { $0.reverseSuccessCount != 1 }))
+        
+        for _ in 1...104 {
+            vm.undo()
+            XCTAssertFalse(vm.isNormal)
+            XCTAssertEqual(vm.currentCard?.id, ids.popLast())
+        }
+        cards = UserDataController.shared?.allCards()
+        XCTAssertFalse(cards!.contains(where: { $0.normalNextReviewDate != nextDateMissed }))
+        XCTAssertFalse(cards!.contains(where: { $0.reverseNextReviewDate != originalDate }))
+        XCTAssertFalse(cards!.contains(where: { $0.normalSuccessCount != 1 }))
+        XCTAssertFalse(cards!.contains(where: { $0.reverseSuccessCount != 3 }))
+        
+        for _ in 1...104 {
+            vm.undo()
+            XCTAssertTrue(vm.isNormal)
+            XCTAssertEqual(vm.currentCard?.id, ids.popLast())
+        }
+        XCTAssertEqual(ids.count, 0)
+        XCTAssertEqual(originalCards, UserDataController.shared?.allCards())
     }
 }
 

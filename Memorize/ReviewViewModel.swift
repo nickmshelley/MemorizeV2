@@ -81,7 +81,17 @@ extension ReviewViewModel {
     func undo() {
         guard let undoObject = undoStack.popLast() else { return }
         
+        let card = undoObject.card
+        currentCard = card
         
+        if undoObject.isNormal {
+            try! UserDataController.shared?.updateNormalReview(ofCardWithID: card.id, nextReview: card.normalNextReviewDate!, successCount: card.normalSuccessCount)
+        } else {
+            try! UserDataController.shared?.updateReverseReview(ofCardWithID: card.id, nextReview: card.reverseNextReviewDate!, successCount: card.reverseSuccessCount)
+        }
+        
+        refreshCards()
+        assert(cards.contains(card))
     }
 }
 
@@ -91,6 +101,8 @@ private extension ReviewViewModel {
         if cards.isEmpty {
             cards = UserDataController.shared?.reverseReadyToReviewCards() ?? []
             isNormal = cards.isEmpty
+        } else {
+            isNormal = true
         }
         remaining = cards.count
     }
