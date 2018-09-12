@@ -19,4 +19,22 @@ struct SettingsController {
             UserDefaults.standard.set(newValue, forKey: cardsToReviewPerDayKey)
         }
     }
+    
+    static var normalReviewedToday: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: "normalReviewedToday")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "normalReviewedToday")
+        }
+    }
+    
+    static var reverseReviewedToday: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: "reverseReviewedToday")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "reverseReviewedToday")
+        }
+    }
 }

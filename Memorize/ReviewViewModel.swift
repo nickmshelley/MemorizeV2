@@ -20,22 +20,6 @@ class ReviewViewModel {
     var currentCard: Card?
     private var undoStack: [UndoObject] = []
     private var previousCard: Card?
-    private var normalReviewed: Int {
-        get {
-            return UserDefaults.standard.integer(forKey: "normalReviewed")
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: "normalReviewed")
-        }
-    }
-    private var reverseReviewed: Int {
-        get {
-            return UserDefaults.standard.integer(forKey: "reverseReviewed")
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: "reverseReviewed")
-        }
-    }
     
     init() {
         updateCurrentCard()
@@ -51,9 +35,11 @@ extension ReviewViewModel {
         if isNormal {
             let nextDate = Calendar.current.date(byAdding: .day, value: currentCard.normalDayDifference(), to: DateHelpers.threeAM())!
             try! UserDataController.shared?.updateNormalReview(ofCardWithID: currentCard.id, nextReview: nextDate, successCount: currentCard.normalSuccessCount + 1)
+            SettingsController.normalReviewedToday += 1
         } else {
             let nextDate = Calendar.current.date(byAdding: .day, value: currentCard.reverseDayDifference(), to: DateHelpers.threeAM())!
             try! UserDataController.shared?.updateReverseReview(ofCardWithID: currentCard.id, nextReview: nextDate, successCount: currentCard.reverseSuccessCount + 1)
+            SettingsController.reverseReviewedToday += 1
         }
         
         cards.remove(at: cards.index(of: currentCard)!)
@@ -86,8 +72,14 @@ extension ReviewViewModel {
         
         if undoObject.isNormal {
             try! UserDataController.shared?.updateNormalReview(ofCardWithID: card.id, nextReview: card.normalNextReviewDate!, successCount: card.normalSuccessCount)
+            if undoObject.correct {
+                SettingsController.normalReviewedToday -= 1
+            }
         } else {
             try! UserDataController.shared?.updateReverseReview(ofCardWithID: card.id, nextReview: card.reverseNextReviewDate!, successCount: card.reverseSuccessCount)
+            if undoObject.correct {
+                SettingsController.reverseReviewedToday -= 1
+            }
         }
         
         refreshCards()

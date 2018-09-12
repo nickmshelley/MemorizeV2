@@ -9,6 +9,13 @@ import XCTest
 @testable import Memorize
 
 class ReviewViewModelTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        
+        SettingsController.normalReviewedToday = 0
+        SettingsController.reverseReviewedToday = 0
+    }
+    
     func testInit() {
         UserDataController.shared = UserDataController(path: nil)
         let needsReview = Date().addingTimeInterval(-50)
@@ -40,8 +47,10 @@ class ReviewViewModelTests: XCTestCase {
         XCTAssertTrue(vm.isNormal)
         XCTAssertEqual(vm.remaining, 2)
         
+        XCTAssertEqual(SettingsController.normalReviewedToday, 0)
         var beforeID = vm.currentCard!.id
         vm.correct()
+        XCTAssertEqual(SettingsController.normalReviewedToday, 1)
         XCTAssertEqual(vm.remaining, 1)
         XCTAssertNotEqual(vm.currentCard!.id, beforeID)
         XCTAssertFalse(UserDataController.shared!.normalReadyToReviewCards().contains { $0.id == beforeID })
@@ -50,14 +59,17 @@ class ReviewViewModelTests: XCTestCase {
         
         beforeID = vm.currentCard!.id
         vm.correct()
+        XCTAssertEqual(SettingsController.normalReviewedToday, 2)
         XCTAssertFalse(vm.isNormal)
         XCTAssertEqual(vm.remaining, 2)
         XCTAssertFalse(UserDataController.shared!.normalReadyToReviewCards().contains { $0.id == beforeID })
         card = try! UserDataController.shared?.card(withID: beforeID)
         XCTAssertEqual(nextDate.timeIntervalSince1970, card!.normalNextReviewDate!.timeIntervalSince1970, accuracy: 0.001)
         
+        XCTAssertEqual(SettingsController.reverseReviewedToday, 0)
         beforeID = vm.currentCard!.id
         vm.correct()
+        XCTAssertEqual(SettingsController.reverseReviewedToday, 1)
         XCTAssertEqual(vm.remaining, 1)
         XCTAssertNotEqual(vm.currentCard!.id, beforeID)
         XCTAssertFalse(UserDataController.shared!.reverseReadyToReviewCards().contains { $0.id == beforeID })
@@ -66,6 +78,7 @@ class ReviewViewModelTests: XCTestCase {
 
         beforeID = vm.currentCard!.id
         vm.correct()
+        XCTAssertEqual(SettingsController.reverseReviewedToday, 2)
         XCTAssertEqual(vm.remaining, 0)
         XCTAssertFalse(UserDataController.shared!.reverseReadyToReviewCards().contains { $0.id == beforeID })
         card = try! UserDataController.shared?.card(withID: beforeID)
@@ -172,6 +185,9 @@ class ReviewViewModelTests: XCTestCase {
         let originalDate = originalCards?.first?.normalNextReviewDate
         let nextDateMissed = DateHelpers.threeAM().addingTimeInterval(24 * 60 * 60)
         
+        XCTAssertEqual(SettingsController.normalReviewedToday, 0)
+        XCTAssertEqual(SettingsController.reverseReviewedToday, 0)
+        
         var ids: [String] = []
         // normal
         for _ in 1...100 {
@@ -187,6 +203,8 @@ class ReviewViewModelTests: XCTestCase {
         }
         XCTAssertEqual(vm.remaining, 4)
         XCTAssertFalse(vm.isNormal)
+        XCTAssertEqual(SettingsController.normalReviewedToday, 4)
+        XCTAssertEqual(SettingsController.reverseReviewedToday, 0)
         
         // reverse
         for _ in 1...100 {
@@ -201,6 +219,8 @@ class ReviewViewModelTests: XCTestCase {
             remaining -= 1
         }
         XCTAssertEqual(vm.remaining, 0)
+        XCTAssertEqual(SettingsController.normalReviewedToday, 4)
+        XCTAssertEqual(SettingsController.reverseReviewedToday, 4)
         
         var cards = UserDataController.shared?.allCards()
         XCTAssertFalse(cards!.contains(where: { $0.normalNextReviewDate != nextDateMissed }))
@@ -218,6 +238,8 @@ class ReviewViewModelTests: XCTestCase {
         XCTAssertFalse(cards!.contains(where: { $0.reverseNextReviewDate != originalDate }))
         XCTAssertFalse(cards!.contains(where: { $0.normalSuccessCount != 1 }))
         XCTAssertFalse(cards!.contains(where: { $0.reverseSuccessCount != 3 }))
+        XCTAssertEqual(SettingsController.normalReviewedToday, 4)
+        XCTAssertEqual(SettingsController.reverseReviewedToday, 0)
         
         for _ in 1...104 {
             vm.undo()
@@ -226,6 +248,18 @@ class ReviewViewModelTests: XCTestCase {
         }
         XCTAssertEqual(ids.count, 0)
         XCTAssertEqual(originalCards, UserDataController.shared?.allCards())
+        
+        XCTAssertEqual(SettingsController.normalReviewedToday, 0)
+        XCTAssertEqual(SettingsController.reverseReviewedToday, 0)
+        for _ in 1...8 {
+            vm.correct()
+        }
+        let nextDate = DateHelpers.threeAM().addingTimeInterval(24 * 60 * 60 * 9)
+        cards = UserDataController.shared?.allCards()
+        XCTAssertFalse(cards!.contains(where: { $0.normalNextReviewDate != nextDate }))
+        XCTAssertFalse(cards!.contains(where: { $0.reverseNextReviewDate != nextDate }))
+        XCTAssertEqual(SettingsController.normalReviewedToday, 4)
+        XCTAssertEqual(SettingsController.reverseReviewedToday, 4)
     }
 }
 
