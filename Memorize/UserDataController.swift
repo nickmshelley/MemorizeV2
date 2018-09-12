@@ -206,7 +206,7 @@ extension UserDataController {
         }
     }
     
-    func todaysNormalReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
+    func todaysNormalReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay, randomize: Bool = true) -> [Card] {
         let reviewToday = perDay - SettingsController.normalReviewedToday
         let allReady = normalReadyToReviewCards()
         guard allReady.count > reviewToday else { return allReady }
@@ -221,7 +221,7 @@ extension UserDataController {
                 return card1.normalSuccessCount < card2.normalSuccessCount
             }
         }
-        let partitioned = sorted.partitioned { $0.normalSuccessCount }
+        let partitioned = sorted.partitioned { $0.normalSuccessCount }.map { randomize ? $0.shuffled() : $0 }
         
         var result = [Card]()
         var currentIndex = 0
@@ -237,7 +237,7 @@ extension UserDataController {
         return result
     }
     
-    func todaysReverseReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
+    func todaysReverseReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay, randomize: Bool = true) -> [Card] {
         let reviewToday = perDay - SettingsController.reverseReviewedToday
         let allReady = reverseReadyToReviewCards()
         guard allReady.count > reviewToday else { return allReady }
@@ -252,7 +252,7 @@ extension UserDataController {
                 return card1.reverseSuccessCount < card2.reverseSuccessCount
             }
         }
-        let partitioned = sorted.partitioned { $0.reverseSuccessCount }
+        let partitioned = sorted.partitioned { $0.reverseSuccessCount }.map { randomize ? $0.shuffled() : $0 }
         
         var result = [Card]()
         var currentIndex = 0

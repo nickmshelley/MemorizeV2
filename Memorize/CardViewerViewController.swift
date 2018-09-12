@@ -45,9 +45,15 @@ class CardViewerViewController: UIViewController {
 }
 
 extension CardViewerViewController {
-    func updateWith(question: String, answer: String) {
+    func updateWith(question: String, answer: String, shouldShowQuestion: Bool) {
         questionView.updateText(question)
         answerView.updateText(answer)
+        view.setNeedsLayout()
+        if shouldShowQuestion {
+            showQuestion(duration: 0)
+        } else {
+            showAnswer(duration: 0)
+        }
     }
 }
 
@@ -89,13 +95,21 @@ extension CardViewerViewController {
     
     @objc func tap() {
         if isShowingQuestion {
-            UIView.transition(from: questionView, to: answerView, duration: 0.5, options: [.transitionFlipFromLeft, .showHideTransitionViews], completion: nil)
-            UIView.transition(with: titleLabel, duration: 0.5, options: .transitionCrossDissolve, animations: { self.titleLabel.text = "Answer" }, completion: nil)
+            showAnswer()
         } else {
-            UIView.transition(from: answerView, to: questionView, duration: 0.5, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: nil)
-            UIView.transition(with: titleLabel, duration: 0.5, options: .transitionCrossDissolve, animations: { self.titleLabel.text = "Question" }, completion: nil)
+            showQuestion()
         }
-        
-        isShowingQuestion = !isShowingQuestion
+    }
+    
+    func showQuestion(duration: TimeInterval = 0.5) {
+        UIView.transition(from: answerView, to: questionView, duration: duration, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: nil)
+        UIView.transition(with: titleLabel, duration: duration, options: .transitionCrossDissolve, animations: { self.titleLabel.text = "Question" }, completion: nil)
+        isShowingQuestion = true
+    }
+    
+    func showAnswer(duration: TimeInterval = 0.5) {
+        UIView.transition(from: questionView, to: answerView, duration: duration, options: [.transitionFlipFromLeft, .showHideTransitionViews], completion: nil)
+        UIView.transition(with: titleLabel, duration: duration, options: .transitionCrossDissolve, animations: { self.titleLabel.text = "Answer" }, completion: nil)
+        isShowingQuestion = false
     }
 }

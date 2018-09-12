@@ -28,6 +28,10 @@ class ReviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        correctButton.addTarget(self, action: #selector(correctPressed), for: .touchUpInside)
+        missedButton.addTarget(self, action: #selector(missedPressed), for: .touchUpInside)
+        undoButton.addTarget(self, action: #selector(undoPressed), for: .touchUpInside)
         title = "Review"
         configureView()
         updateCard()
@@ -37,16 +41,34 @@ class ReviewViewController: UIViewController {
         super.viewDidAppear(animated)
         
         viewModel.refresh()
+        updateCard()
     }
 }
 
 extension ReviewViewController {
     private func updateCard() {
         if let card = viewModel.currentCard {
-            cardViewerViewController.updateWith(question: card.question, answer: card.answer)
+            cardViewerViewController.updateWith(question: card.question, answer: card.answer, shouldShowQuestion: viewModel.isNormal)
+            title = "Review (\(String(viewModel.remaining)))"
         } else {
-            cardViewerViewController.updateWith(question: "No cards left to review", answer: "No cards left to review")
+            cardViewerViewController.updateWith(question: "No cards left to review", answer: "No cards left to review", shouldShowQuestion: true)
+            title = "Review"
         }
+    }
+    
+    @objc func correctPressed() {
+        viewModel.correct()
+        updateCard()
+    }
+    
+    @objc func missedPressed() {
+        viewModel.missed()
+        updateCard()
+    }
+    
+    @objc func undoPressed() {
+        viewModel.undo()
+        updateCard()
     }
 }
 

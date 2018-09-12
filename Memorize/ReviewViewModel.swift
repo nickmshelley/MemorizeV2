@@ -82,19 +82,32 @@ extension ReviewViewModel {
         currentCard = card
         
         if undoObject.isNormal {
-            try! UserDataController.shared?.updateNormalReview(ofCardWithID: card.id, nextReview: card.normalNextReviewDate!, successCount: card.normalSuccessCount)
+            let updatedCard = try! UserDataController.shared!.updateNormalReview(ofCardWithID: card.id, nextReview: card.normalNextReviewDate!, successCount: card.normalSuccessCount)
             if undoObject.correct {
                 SettingsController.normalReviewedToday -= 1
+                if isNormal {
+                    cards.append(card)
+                } else {
+                    isNormal = true
+                    cards = [card]
+                }
+            } else {
+                cards.remove(at: cards.index(where: { $0.id == card.id })!)
+                cards.append(updatedCard)
             }
         } else {
-            try! UserDataController.shared?.updateReverseReview(ofCardWithID: card.id, nextReview: card.reverseNextReviewDate!, successCount: card.reverseSuccessCount)
+            isNormal = false
+            let updatedCard = try! UserDataController.shared!.updateReverseReview(ofCardWithID: card.id, nextReview: card.reverseNextReviewDate!, successCount: card.reverseSuccessCount)
             if undoObject.correct {
                 SettingsController.reverseReviewedToday -= 1
+                cards.append(card)
+            } else {
+                cards.remove(at: cards.index(where: { $0.id == card.id })!)
+                cards.append(updatedCard)
             }
         }
         
-        refreshCards()
-        assert(cards.contains(card))
+        remaining = cards.count
     }
 }
 

@@ -92,7 +92,7 @@ class UserDataTests: XCTestCase {
         let normalExpectedEight = normalExpectedSeven + [beforeIDsTwo[0]]
         
         let normalExpecteds = [normalExpectedOne, normalExpectedTwo, normalExpectedThree, normalExpectedFour, normalExpectedFive, normalExpectedSix, normalExpectedSeven, normalExpectedEight]
-        let normalActuals = (1...8).map { db.todaysNormalReviewCards(perDay: $0).map({ $0.id }) }
+        let normalActuals = (1...8).map { db.todaysNormalReviewCards(perDay: $0, randomize: false).map({ $0.id }) }
         
         XCTAssertEqual(normalExpecteds, normalActuals)
         
@@ -107,7 +107,7 @@ class UserDataTests: XCTestCase {
         let reverseExpectedEight = reverseExpectedSeven + [beforeIDsTwo[0]]
         
         let reverseExpecteds = [reverseExpectedOne, reverseExpectedTwo, reverseExpectedThree, reverseExpectedFour, reverseExpectedFive, reverseExpectedSix, reverseExpectedSeven, reverseExpectedEight]
-        let reverseActuals = (1...8).map { db.todaysReverseReviewCards(perDay: $0).map({ $0.id }) }
+        let reverseActuals = (1...8).map { db.todaysReverseReviewCards(perDay: $0, randomize: false).map({ $0.id }) }
         
         XCTAssertEqual(reverseExpecteds, reverseActuals)
     }

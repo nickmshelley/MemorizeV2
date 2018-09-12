@@ -11,7 +11,7 @@ import XCTest
 class DateHelperTests: XCTestCase {
     func testThreeAMToday() {
         let testDate1 = DateHelpers.threeAM()
-        sleep(5)
+        sleep(3)
         let testDate2 = DateHelpers.threeAM()
         
         XCTAssertEqual(testDate1, testDate2)
