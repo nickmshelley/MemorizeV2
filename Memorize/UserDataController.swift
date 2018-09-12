@@ -207,8 +207,9 @@ extension UserDataController {
     }
     
     func todaysNormalReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
+        let reviewToday = perDay - SettingsController.normalReviewedToday
         let allReady = normalReadyToReviewCards()
-        guard allReady.count > perDay else { return allReady }
+        guard allReady.count > reviewToday else { return allReady }
         let sorted = allReady.sorted { card1, card2 in
             if card1.normalSuccessCount == card2.normalSuccessCount, let nextReview1 = card1.normalNextReviewDate, let nextReview2 = card2.normalNextReviewDate {
                 if nextReview1 == nextReview2 {
@@ -224,9 +225,9 @@ extension UserDataController {
         
         var result = [Card]()
         var currentIndex = 0
-        while result.count < perDay {
+        while result.count < reviewToday {
             for day in partitioned {
-                if result.count < perDay, let card = day[safe: currentIndex] {
+                if result.count < reviewToday, let card = day[safe: currentIndex] {
                     result.append(card)
                 }
             }
@@ -237,8 +238,9 @@ extension UserDataController {
     }
     
     func todaysReverseReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
+        let reviewToday = perDay - SettingsController.reverseReviewedToday
         let allReady = reverseReadyToReviewCards()
-        guard allReady.count > perDay else { return allReady }
+        guard allReady.count > reviewToday else { return allReady }
         let sorted = allReady.sorted { card1, card2 in
             if card1.reverseSuccessCount == card2.reverseSuccessCount, let nextReview1 = card1.reverseNextReviewDate, let nextReview2 = card2.reverseNextReviewDate {
                 if nextReview1 == nextReview2 {
@@ -254,9 +256,9 @@ extension UserDataController {
         
         var result = [Card]()
         var currentIndex = 0
-        while result.count < perDay {
+        while result.count < reviewToday {
             for day in partitioned {
-                if result.count < perDay, let card = day[safe: currentIndex] {
+                if result.count < reviewToday, let card = day[safe: currentIndex] {
                     result.append(card)
                 }
             }

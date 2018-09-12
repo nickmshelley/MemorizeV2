@@ -9,6 +9,13 @@ import XCTest
 @testable import Memorize
 
 class UserDataTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        
+        SettingsController.normalReviewedToday = 0
+        SettingsController.reverseReviewedToday = 0
+    }
+    
     func testAllCards() {
         let db = UserDataController(path: nil)!
         
@@ -62,6 +69,17 @@ class UserDataTests: XCTestCase {
         
         let beforeIDsOne = (1...2).map { _ in createCardWithNextReview(before, successCount: 1, db: db) }.sorted()
         let beforeIDsTwo = (1...2).map { _ in createCardWithNextReview(before, successCount: 2, db: db) }.sorted()
+        
+        XCTAssertEqual(db.todaysNormalReviewCards(perDay: 10).count, 10)
+        XCTAssertEqual(db.todaysReverseReviewCards(perDay: 10).count, 10)
+        
+        SettingsController.normalReviewedToday = 5
+        SettingsController.reverseReviewedToday = 3
+        XCTAssertEqual(db.todaysNormalReviewCards(perDay: 10).count, 5)
+        XCTAssertEqual(db.todaysReverseReviewCards(perDay: 10).count, 7)
+        
+        SettingsController.reverseReviewedToday = 0
+        SettingsController.normalReviewedToday = 0
         
         // Normal
         let normalExpectedOne = [moreBeforeIDsOne[0]]
