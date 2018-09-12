@@ -27,6 +27,17 @@ class ReviewViewModel {
 }
 
 extension ReviewViewModel {
+    func refresh() {
+        guard SettingsController.lastRefresh < DateHelpers.threeAM() else { return }
+        
+        SettingsController.normalReviewedToday = 0
+        SettingsController.reverseReviewedToday = 0
+        SettingsController.lastRefresh = Date()
+        
+        refreshCards()
+        updateCurrentCard()
+    }
+    
     func correct() {
         guard let currentCard = currentCard else { return }
         
@@ -89,9 +100,9 @@ extension ReviewViewModel {
 
 private extension ReviewViewModel {
     private func refreshCards() {
-        cards = UserDataController.shared?.normalReadyToReviewCards() ?? []
+        cards = UserDataController.shared?.todaysNormalReviewCards() ?? []
         if cards.isEmpty {
-            cards = UserDataController.shared?.reverseReadyToReviewCards() ?? []
+            cards = UserDataController.shared?.todaysReverseReviewCards() ?? []
             isNormal = cards.isEmpty
         } else {
             isNormal = true

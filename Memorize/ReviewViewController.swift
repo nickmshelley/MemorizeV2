@@ -32,6 +32,12 @@ class ReviewViewController: UIViewController {
         configureView()
         updateCard()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.refresh()
+    }
 }
 
 extension ReviewViewController {

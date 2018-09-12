@@ -12,8 +12,10 @@ class ReviewViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
+        SettingsController.cardsToReviewPerDay = 15
         SettingsController.normalReviewedToday = 0
         SettingsController.reverseReviewedToday = 0
+        SettingsController.lastRefresh = .distantPast
     }
     
     func testInit() {
@@ -260,6 +262,27 @@ class ReviewViewModelTests: XCTestCase {
         XCTAssertFalse(cards!.contains(where: { $0.reverseNextReviewDate != nextDate }))
         XCTAssertEqual(SettingsController.normalReviewedToday, 4)
         XCTAssertEqual(SettingsController.reverseReviewedToday, 4)
+    }
+    
+    func testRefresh() {
+        UserDataController.shared = UserDataController(path: nil)
+        let needsReview = Date().addingTimeInterval(-50)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview, successCount: 3)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview, successCount: 3)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview, successCount: 3)
+        createCard(normalNextReview: needsReview, reverseNextReview: needsReview, successCount: 3)
+        SettingsController.cardsToReviewPerDay = 4
+        
+        SettingsController.normalReviewedToday = 2
+        let vm = ReviewViewModel()
+        XCTAssertEqual(vm.remaining, 2)
+        SettingsController.lastRefresh = Date()
+        vm.refresh()
+        XCTAssertEqual(vm.remaining, 2)
+        SettingsController.lastRefresh = .distantPast
+        vm.refresh()
+        XCTAssertEqual(vm.remaining, 4)
+        XCTAssertEqual(SettingsController.lastRefresh.timeIntervalSinceNow, 0, accuracy: 1)
     }
 }
 

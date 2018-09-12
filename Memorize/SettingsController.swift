@@ -8,15 +8,13 @@
 import Foundation
 
 struct SettingsController {
-    private static let cardsToReviewPerDayKey = "cardsToReviewPerDay"
-    
     static var cardsToReviewPerDay: Int {
         get {
-            let perDay = UserDefaults.standard.integer(forKey: cardsToReviewPerDayKey)
+            let perDay = UserDefaults.standard.integer(forKey: "cardsToReviewPerDay")
             return perDay > 0 ? perDay : 15
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: cardsToReviewPerDayKey)
+            UserDefaults.standard.set(newValue, forKey: "cardsToReviewPerDay")
         }
     }
     
@@ -35,6 +33,15 @@ struct SettingsController {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "reverseReviewedToday")
+        }
+    }
+    
+    static var lastRefresh: Date {
+        get {
+            return UserDefaults.standard.object(forKey: "lastRefresh") as? Date ?? .distantPast
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "lastRefresh")
         }
     }
 }
