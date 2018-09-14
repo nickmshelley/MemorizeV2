@@ -28,6 +28,10 @@ class StatsViewController: UITableViewController {
         title = "Stats"
         tableView.register(StatCell.self, forCellReuseIdentifier: "Cell")
         tableView.allowsSelection = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         let cards = UserDataController.shared?.allCards() ?? []
         let stats = viewModel.stats(from: cards)
@@ -48,6 +52,8 @@ class StatsViewController: UITableViewController {
         let daysSection = Section(title: "Need Review", rows: dailyRows)
         
         sections = [totalsSection, daysSection]
+        
+        tableView.reloadData()
     }
 }
 

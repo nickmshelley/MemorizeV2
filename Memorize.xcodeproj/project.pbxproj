@@ -124,6 +124,7 @@
 		36393A972009758D00C95347 /* CardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewController.swift; sourceTree = "<group>"; };
 		36393A99200976E200C95347 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		36393A9B2009771300C95347 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		363CC8D9214ADF81000654A5 /* Frameworks.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Frameworks.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +160,7 @@
 		36393A012009324C00C95347 = {
 			isa = PBXGroup;
 			children = (
+				363CC8D9214ADF81000654A5 /* Frameworks.xcconfig */,
 				36393A0C2009324C00C95347 /* Memorize */,
 				36393A212009324C00C95347 /* MemorizeTests */,
 				36393A2C2009324D00C95347 /* MemorizeUITests */,
@@ -465,6 +467,7 @@
 /* Begin XCBuildConfiguration section */
 		36393A302009324D00C95347 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 363CC8D9214ADF81000654A5 /* Frameworks.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -524,6 +527,7 @@
 		};
 		36393A312009324D00C95347 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 363CC8D9214ADF81000654A5 /* Frameworks.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

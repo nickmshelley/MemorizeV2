@@ -60,11 +60,11 @@ struct StatsViewModel {
                 for myStats in $0.items {
                     switch myStats.type {
                     case .normal:
-                        normalTotal = myStats.total
-                        normalNeedsReview = myStats.needsReview
+                        normalTotal += myStats.total
+                        normalNeedsReview += myStats.needsReview
                     case .reverse:
-                        reverseTotal = myStats.total
-                        reverseNeedsReview = myStats.needsReview
+                        reverseTotal += myStats.total
+                        reverseNeedsReview += myStats.needsReview
                     }
                 }
                 

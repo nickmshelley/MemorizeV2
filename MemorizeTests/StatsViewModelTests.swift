@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import Memorize
+import Swiftification
 
 class StatsViewModelTests: XCTestCase {
     func testTotals() {
@@ -44,7 +45,7 @@ class StatsViewModelTests: XCTestCase {
         normalAverage += 0.1
         reverseAverage += 0.1
         
-        let stats = StatsViewModel().stats(from: set1 + set2 + set3)
+        let stats = StatsViewModel().stats(from: (set1 + set2 + set3).shuffled())
         
         XCTAssertEqual(stats.normalAveragePerDay, normalAverage, accuracy: 0.01)
         XCTAssertEqual(stats.reverseAveragePerDay, reverseAverage, accuracy: 0.01)
@@ -57,7 +58,8 @@ class StatsViewModelTests: XCTestCase {
         let set3 = (1...4).map { _ in createCard(normalSuccessCount: 4, reverseSuccessCount: 3, isReady: true) }
         let set4 = (1...3).map { _ in createCard(normalSuccessCount: 4, reverseSuccessCount: 3, isReady: false) }
         let set5 = (1...2).map { _ in createCard(normalSuccessCount: 3, reverseSuccessCount: 4, isReady: true)}
-        let stats = StatsViewModel().stats(from: set1 + set2 + set3 + set4 + set5)
+        let all = set1 + set2 + set3 + set4 + set5
+        let stats = StatsViewModel().stats(from: all.shuffled())
         
         let dayStats = stats.dayStats
         XCTAssertEqual(dayStats.count, 4)
@@ -94,23 +96,23 @@ class StatsViewModelTests: XCTestCase {
 
 extension StatsViewModelTests {
     private func createCard(isReviewing: Bool) -> Card {
-        return Card(id: "", question: "", answer: "", isReviewing: isReviewing, normalSuccessCount: 0, reverseSuccessCount: 0, normalNextReviewDate: nil, reverseNextReviewDate: nil)
+        return Card(id: String.random(), question: String.random(), answer: String.random(), isReviewing: isReviewing, normalSuccessCount: 0, reverseSuccessCount: 0, normalNextReviewDate: nil, reverseNextReviewDate: nil)
     }
     
     private func createCard(isReadyNormal: Bool, isReadyReverse: Bool) -> Card {
         let normalToAdd: TimeInterval = isReadyNormal ? -20 : 20
         let reverseToAdd: TimeInterval = isReadyReverse ? -20 : 20
         
-        return Card(id: "", question: "", answer: "", isReviewing: true, normalSuccessCount: 3, reverseSuccessCount: 3, normalNextReviewDate: Date().addingTimeInterval(normalToAdd), reverseNextReviewDate: Date().addingTimeInterval(reverseToAdd))
+        return Card(id: String.random(), question: String.random(), answer: String.random(), isReviewing: true, normalSuccessCount: 3, reverseSuccessCount: 3, normalNextReviewDate: Date().addingTimeInterval(normalToAdd), reverseNextReviewDate: Date().addingTimeInterval(reverseToAdd))
     }
     
     private func createCard(normalSuccessCount: Int, reverseSuccessCount: Int) -> Card {
-        return Card(id: "", question: "", answer: "", isReviewing: true, normalSuccessCount: normalSuccessCount, reverseSuccessCount: reverseSuccessCount, normalNextReviewDate: nil, reverseNextReviewDate: nil)
+        return Card(id: String.random(), question: String.random(), answer: String.random(), isReviewing: true, normalSuccessCount: normalSuccessCount, reverseSuccessCount: reverseSuccessCount, normalNextReviewDate: nil, reverseNextReviewDate: nil)
     }
     
     private func createCard(normalSuccessCount: Int, reverseSuccessCount: Int, isReady: Bool) -> Card {
         let toAdd: TimeInterval = isReady ? -20 : 20
         let date = Date().addingTimeInterval(toAdd)
-        return Card(id: "", question: "", answer: "", isReviewing: true, normalSuccessCount: normalSuccessCount, reverseSuccessCount: reverseSuccessCount, normalNextReviewDate: date, reverseNextReviewDate: date)
+        return Card(id: String.random(), question: String.random(), answer: String.random(), isReviewing: true, normalSuccessCount: normalSuccessCount, reverseSuccessCount: reverseSuccessCount, normalNextReviewDate: date, reverseNextReviewDate: date)
     }
 }
