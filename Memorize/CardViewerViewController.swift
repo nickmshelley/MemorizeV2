@@ -47,8 +47,19 @@ class CardViewerViewController: UIViewController {
 extension CardViewerViewController {
     func updateWith(question: String, answer: String, shouldShowQuestion: Bool) {
         questionView.updateText(question)
-        answerView.updateText(answer)
+        
+        var answerToDisplay = answer
+        if !shouldShowQuestion {
+            let charset = CharacterSet(charactersIn: ".").union(.whitespaces).union(.decimalDigits)
+            answerToDisplay = answer.components(separatedBy: .newlines)
+                .filter { !$0.isEmpty }
+                .map { $0.trimmingCharacters(in: charset) }
+                .joined(separator: "\n\n")
+        }
+        
+        answerView.updateText(answerToDisplay)
         view.setNeedsLayout()
+        
         if shouldShowQuestion {
             showQuestion(duration: 0)
         } else {
