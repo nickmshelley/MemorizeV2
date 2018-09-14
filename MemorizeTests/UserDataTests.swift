@@ -63,53 +63,38 @@ class UserDataTests: XCTestCase {
         let before = Date().addingTimeInterval(-20)
         let moreBefore = Date().addingTimeInterval(-40)
         
-        let moreBeforeIDsOne = (1...2).map { _ in createCardWithNextReview(moreBefore, successCount: 1, db: db) }.sorted()
-        let moreBeforeIDsTwo = (1...2).map { _ in createCardWithNextReview(moreBefore, successCount: 2, db: db) }.sorted()
-        let moreBeforeIDsThree = (1...2).map { _ in createCardWithNextReview(moreBefore, successCount: 3, db: db) }.sorted()
+        let moreBeforeIDOne = createCardWithNextReview(moreBefore, successCount: 1, db: db)
+        let moreBeforeIDTwo = createCardWithNextReview(moreBefore, successCount: 2, db: db)
+        let moreBeforeIDThree = createCardWithNextReview(moreBefore, successCount: 3, db: db)
         
-        let beforeIDsOne = (1...2).map { _ in createCardWithNextReview(before, successCount: 1, db: db) }.sorted()
-        let beforeIDsTwo = (1...2).map { _ in createCardWithNextReview(before, successCount: 2, db: db) }.sorted()
+        let beforeIDOne = createCardWithNextReview(before, successCount: 1, db: db)
+        let beforeIDTwo = createCardWithNextReview(before, successCount: 2, db: db)
         
-        XCTAssertEqual(db.todaysNormalReviewCards(perDay: 10).count, 10)
-        XCTAssertEqual(db.todaysReverseReviewCards(perDay: 10).count, 10)
-        
-        SettingsController.normalReviewedToday = 5
-        SettingsController.reverseReviewedToday = 3
         XCTAssertEqual(db.todaysNormalReviewCards(perDay: 10).count, 5)
-        XCTAssertEqual(db.todaysReverseReviewCards(perDay: 10).count, 7)
+        XCTAssertEqual(db.todaysReverseReviewCards(perDay: 10).count, 5)
+        
+        SettingsController.normalReviewedToday = 3
+        SettingsController.reverseReviewedToday = 2
+        XCTAssertEqual(db.todaysNormalReviewCards(perDay: 5).count, 2)
+        XCTAssertEqual(db.todaysReverseReviewCards(perDay: 5).count, 3)
         
         SettingsController.reverseReviewedToday = 0
         SettingsController.normalReviewedToday = 0
         
         // Normal
-        let normalExpectedOne = [moreBeforeIDsOne[0]]
-        let normalExpectedTwo = normalExpectedOne + [moreBeforeIDsTwo[0]]
-        let normalExpectedThree = normalExpectedTwo + [moreBeforeIDsThree[0]]
-        let normalExpectedFour = normalExpectedThree + [moreBeforeIDsOne[1]]
-        let normalExpectedFive = normalExpectedFour + [moreBeforeIDsTwo[1]]
-        let normalExpectedSix = normalExpectedFive + [moreBeforeIDsThree[1]]
-        let normalExpectedSeven = normalExpectedSix + [beforeIDsOne[0]]
-        let normalExpectedEight = normalExpectedSeven + [beforeIDsTwo[0]]
+        let normalExpectedOne = [moreBeforeIDOne]
+        let normalExpectedTwo = normalExpectedOne + [moreBeforeIDTwo]
+        let normalExpectedThree = normalExpectedTwo + [moreBeforeIDThree]
+        let normalExpectedFour = normalExpectedThree + [beforeIDOne]
+        let normalExpectedFive = normalExpectedFour + [beforeIDTwo]
         
-        let normalExpecteds = [normalExpectedOne, normalExpectedTwo, normalExpectedThree, normalExpectedFour, normalExpectedFive, normalExpectedSix, normalExpectedSeven, normalExpectedEight]
-        let normalActuals = (1...8).map { db.todaysNormalReviewCards(perDay: $0, randomize: false).map({ $0.id }) }
-        
-        XCTAssertEqual(normalExpecteds, normalActuals)
+        let expecteds = [normalExpectedOne, normalExpectedTwo, normalExpectedThree, normalExpectedFour, normalExpectedFive].map { Set($0) }
+        let normalActuals = (1...5).map { db.todaysNormalReviewCards(perDay: $0).map({ $0.id }) }.map { Set($0) }
+        XCTAssertEqual(expecteds, normalActuals)
         
         // Reverse
-        let reverseExpectedOne = [moreBeforeIDsOne[0]]
-        let reverseExpectedTwo = reverseExpectedOne + [moreBeforeIDsTwo[0]]
-        let reverseExpectedThree = reverseExpectedTwo + [moreBeforeIDsThree[0]]
-        let reverseExpectedFour = reverseExpectedThree + [moreBeforeIDsOne[1]]
-        let reverseExpectedFive = reverseExpectedFour + [moreBeforeIDsTwo[1]]
-        let reverseExpectedSix = reverseExpectedFive + [moreBeforeIDsThree[1]]
-        let reverseExpectedSeven = reverseExpectedSix + [beforeIDsOne[0]]
-        let reverseExpectedEight = reverseExpectedSeven + [beforeIDsTwo[0]]
-        
-        let reverseExpecteds = [reverseExpectedOne, reverseExpectedTwo, reverseExpectedThree, reverseExpectedFour, reverseExpectedFive, reverseExpectedSix, reverseExpectedSeven, reverseExpectedEight]
-        let reverseActuals = (1...8).map { db.todaysReverseReviewCards(perDay: $0, randomize: false).map({ $0.id }) }
-        
-        XCTAssertEqual(reverseExpecteds, reverseActuals)
+        let reverseActuals = (1...5).map { db.todaysReverseReviewCards(perDay: $0).map({ $0.id }) }.map { Set($0) }
+        XCTAssertEqual(expecteds, reverseActuals)
     }
     
     func testUpdate() {

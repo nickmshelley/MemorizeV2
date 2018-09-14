@@ -206,22 +206,19 @@ extension UserDataController {
         }
     }
     
-    func todaysNormalReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay, randomize: Bool = true) -> [Card] {
+    func todaysNormalReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
         let reviewToday = perDay - SettingsController.normalReviewedToday
-        let allReady = normalReadyToReviewCards()
+        let allReady = normalReadyToReviewCards().shuffled()
         guard allReady.count > reviewToday else { return allReady }
+        
         let sorted = allReady.sorted { card1, card2 in
             if card1.normalSuccessCount == card2.normalSuccessCount, let nextReview1 = card1.normalNextReviewDate, let nextReview2 = card2.normalNextReviewDate {
-                if nextReview1 == nextReview2 {
-                    return card1.id < card2.id
-                } else {
-                    return nextReview1 < nextReview2
-                }
+                return nextReview1 < nextReview2
             } else {
                 return card1.normalSuccessCount < card2.normalSuccessCount
             }
         }
-        let partitioned = sorted.partitioned { $0.normalSuccessCount }.map { randomize ? $0.shuffled() : $0 }
+        let partitioned = sorted.partitioned { $0.normalSuccessCount }
         
         var result = [Card]()
         var currentIndex = 0
@@ -237,22 +234,18 @@ extension UserDataController {
         return result
     }
     
-    func todaysReverseReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay, randomize: Bool = true) -> [Card] {
+    func todaysReverseReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
         let reviewToday = perDay - SettingsController.reverseReviewedToday
-        let allReady = reverseReadyToReviewCards()
+        let allReady = reverseReadyToReviewCards().shuffled()
         guard allReady.count > reviewToday else { return allReady }
         let sorted = allReady.sorted { card1, card2 in
             if card1.reverseSuccessCount == card2.reverseSuccessCount, let nextReview1 = card1.reverseNextReviewDate, let nextReview2 = card2.reverseNextReviewDate {
-                if nextReview1 == nextReview2 {
-                    return card1.id < card2.id
-                } else {
-                    return nextReview1 < nextReview2
-                }
+                return nextReview1 < nextReview2
             } else {
                 return card1.reverseSuccessCount < card2.reverseSuccessCount
             }
         }
-        let partitioned = sorted.partitioned { $0.reverseSuccessCount }.map { randomize ? $0.shuffled() : $0 }
+        let partitioned = sorted.partitioned { $0.reverseSuccessCount }
         
         var result = [Card]()
         var currentIndex = 0
@@ -339,8 +332,8 @@ extension UserDataController {
             }
         }
         
+        let date = DateHelpers.threeAM()
         for (question, answer) in uniqueCards {
-            let date = Date()
             try! createCard(question: question, answer: answer, isReviewing: true, normalSuccessCount: 10, reverseSuccessCount: 10, normalNextReviewDate: date, reverseNextReviewDate: date)
         }
     }
