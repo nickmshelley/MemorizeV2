@@ -44,11 +44,11 @@ extension ReviewViewModel {
         undoStack.append(UndoObject(card: currentCard, correct: true, isNormal: isNormal))
         
         if isNormal {
-            let nextDate = Calendar.current.date(byAdding: .day, value: currentCard.normalDayDifference(), to: DateHelpers.threeAM())!
+            let nextDate = Calendar.current.date(byAdding: .day, value: currentCard.dayDifference(successCount: currentCard.normalSuccessCount + 1), to: DateHelpers.threeAM())!
             try! UserDataController.shared?.updateNormalReview(ofCardWithID: currentCard.id, nextReview: nextDate, successCount: currentCard.normalSuccessCount + 1)
             SettingsController.normalReviewedToday += 1
         } else {
-            let nextDate = Calendar.current.date(byAdding: .day, value: currentCard.reverseDayDifference(), to: DateHelpers.threeAM())!
+            let nextDate = Calendar.current.date(byAdding: .day, value: currentCard.dayDifference(successCount: currentCard.reverseSuccessCount + 1), to: DateHelpers.threeAM())!
             try! UserDataController.shared?.updateReverseReview(ofCardWithID: currentCard.id, nextReview: nextDate, successCount: currentCard.reverseSuccessCount + 1)
             SettingsController.reverseReviewedToday += 1
         }

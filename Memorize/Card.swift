@@ -37,7 +37,7 @@ extension Card {
         return dayDifference(successCount: reverseSuccessCount)
     }
     
-    private func dayDifference(successCount: Int) -> Int {
+    func dayDifference(successCount: Int) -> Int {
         return max(1, min(100, Int(pow(Double(successCount), 2))))
     }
 }

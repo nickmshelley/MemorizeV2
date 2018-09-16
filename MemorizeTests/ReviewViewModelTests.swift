@@ -43,7 +43,7 @@ class ReviewViewModelTests: XCTestCase {
         let needsReview = Date().addingTimeInterval(-50)
         createCard(normalNextReview: needsReview, reverseNextReview: needsReview)
         createCard(normalNextReview: needsReview, reverseNextReview: needsReview)
-        let nextDate = DateHelpers.threeAM().addingTimeInterval(24 * 60 * 60)
+        let nextDate = DateHelpers.threeAM().addingTimeInterval(24 * 60 * 60 * 4)
         
         let vm = ReviewViewModel()
         XCTAssertTrue(vm.isNormal)
@@ -136,7 +136,7 @@ class ReviewViewModelTests: XCTestCase {
         createCard(normalNextReview: needsReview, reverseNextReview: needsReview, successCount: 3)
         let vm = ReviewViewModel()
         let originalCard = vm.currentCard!
-        let nextDate = DateHelpers.threeAM().addingTimeInterval(24 * 60 * 60 * 9)
+        let nextDate = DateHelpers.threeAM().addingTimeInterval(24 * 60 * 60 * 16)
         
         vm.correct()
         XCTAssertEqual(try! dc?.card(withID: originalCard.id)?.normalNextReviewDate, nextDate)
@@ -256,7 +256,7 @@ class ReviewViewModelTests: XCTestCase {
         for _ in 1...8 {
             vm.correct()
         }
-        let nextDate = DateHelpers.threeAM().addingTimeInterval(24 * 60 * 60 * 9)
+        let nextDate = DateHelpers.threeAM().addingTimeInterval(24 * 60 * 60 * 16)
         cards = UserDataController.shared?.allCards()
         XCTAssertFalse(cards!.contains(where: { $0.normalNextReviewDate != nextDate }))
         XCTAssertFalse(cards!.contains(where: { $0.reverseNextReviewDate != nextDate }))
