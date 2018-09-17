@@ -57,8 +57,25 @@ extension ReviewViewController {
     }
     
     @objc func correctPressed() {
-        viewModel.correct()
-        updateCard()
+        if viewModel.remaining == 0 && viewModel.currentCard == nil {
+            let alert = UIAlertController(title: "Add 10 cards?", message: nil, preferredStyle: .alert)
+            let normalAction = UIAlertAction(title: "Normal", style: .default) { _ in
+                self.viewModel.addMoreNormal()
+                self.updateCard()
+            }
+            let reverseAction = UIAlertAction(title: "Reverse", style: .default) { _ in
+                self.viewModel.addMoreReverse()
+                self.updateCard()
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(normalAction)
+            alert.addAction(reverseAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            viewModel.correct()
+            updateCard()
+        }
     }
     
     @objc func missedPressed() {

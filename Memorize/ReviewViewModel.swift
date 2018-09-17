@@ -109,6 +109,22 @@ extension ReviewViewModel {
         
         remaining = cards.count
     }
+    
+    func addMoreNormal() {
+        cards = UserDataController.shared?.todaysNormalReviewCards(perDay: 10, force: true) ?? []
+        isNormal = true
+        remaining = cards.count
+        
+        updateCurrentCard()
+    }
+    
+    func addMoreReverse() {
+        cards = UserDataController.shared?.todaysReverseReviewCards(perDay: 10, force: true) ?? []
+        isNormal = false
+        remaining = cards.count
+        
+        updateCurrentCard()
+    }
 }
 
 private extension ReviewViewModel {

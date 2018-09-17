@@ -77,6 +77,8 @@ class UserDataTests: XCTestCase {
         SettingsController.reverseReviewedToday = 2
         XCTAssertEqual(db.todaysNormalReviewCards(perDay: 5).count, 2)
         XCTAssertEqual(db.todaysReverseReviewCards(perDay: 5).count, 3)
+        XCTAssertEqual(db.todaysNormalReviewCards(perDay: 5, force: true).count, 5)
+        XCTAssertEqual(db.todaysReverseReviewCards(perDay: 5, force: true).count, 5)
         
         SettingsController.reverseReviewedToday = 0
         SettingsController.normalReviewedToday = 0

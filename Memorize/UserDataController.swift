@@ -206,8 +206,8 @@ extension UserDataController {
         }
     }
     
-    func todaysNormalReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
-        let reviewToday = perDay - SettingsController.normalReviewedToday
+    func todaysNormalReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay, force: Bool = false) -> [Card] {
+        let reviewToday = perDay - (force ? 0 : SettingsController.normalReviewedToday)
         let allReady = normalReadyToReviewCards().shuffled()
         guard allReady.count > reviewToday else { return allReady }
         
@@ -234,8 +234,8 @@ extension UserDataController {
         return result
     }
     
-    func todaysReverseReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay) -> [Card] {
-        let reviewToday = perDay - SettingsController.reverseReviewedToday
+    func todaysReverseReviewCards(perDay: Int = SettingsController.cardsToReviewPerDay, force: Bool = false) -> [Card] {
+        let reviewToday = perDay - (force ? 0 : SettingsController.reverseReviewedToday)
         let allReady = reverseReadyToReviewCards().shuffled()
         guard allReady.count > reviewToday else { return allReady }
         let sorted = allReady.sorted { card1, card2 in
