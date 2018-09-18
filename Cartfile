@@ -1,6 +1,4 @@
 #git "ssh://git@stash01.myfamilysouth.com:7999/mbt/ios-tools.git" "master"
-github "ReactorSwift/Reactor"
-github "ReactiveX/RxSwift"
 github "stephencelis/SQLite.swift"
 github "Raizlabs/Anchorage"
 github "CrossWaterBridge/Swiftification"

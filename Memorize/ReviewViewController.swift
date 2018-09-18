@@ -91,7 +91,7 @@ extension ReviewViewController {
 
 extension ReviewViewController {
     func configureView() {
-        addChildViewController(cardViewerViewController)
+        addChild(cardViewerViewController)
         let buttonsStackView = UIStackView(arrangedSubviews: [correctButton, undoButton, missedButton], axis: .horizontal, distribution: .equalSpacing)
         view.addSubview(cardViewerViewController.view)
         view.addSubview(buttonsStackView)
@@ -116,6 +116,6 @@ extension ReviewViewController {
         buttonsStackView.topAnchor == cardViewerViewController.view.bottomAnchor + 12
         buttonsStackView.bottomAnchor == view.safeAreaLayoutGuide.bottomAnchor - 12
         
-        cardViewerViewController.didMove(toParentViewController: self)
+        cardViewerViewController.didMove(toParent: self)
     }
 }

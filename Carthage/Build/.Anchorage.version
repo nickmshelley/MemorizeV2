@@ -1,9 +1,9 @@
 {
-  "commitish" : "4.2.1",
+  "commitish" : "4.2.4",
   "iOS" : [
     {
       "name" : "Anchorage",
-      "hash" : "eabebbb32a44f1c43a0ad566f24dfad4e7b295b7ebb9510d337db5b9772e333b"
+      "hash" : "a73e1373dc653d3b33d44bcce2b78257782f55f6b96ad1b3043e61e47e3fceac"
     }
   ]
 }

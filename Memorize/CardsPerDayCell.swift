@@ -25,7 +25,7 @@ class CardsPerDayCell: UITableViewCell {
     
     private var callBack: (_ difference: Difference) -> Void = { _ in }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureViews()
     }

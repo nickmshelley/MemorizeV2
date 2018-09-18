@@ -1,4 +1,0 @@
-framework module Reactor {
-    header "Reactor-Swift.h"
-    requires objc
-}

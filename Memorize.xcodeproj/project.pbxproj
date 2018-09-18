@@ -35,10 +35,6 @@
 		36393A182009324C00C95347 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36393A162009324C00C95347 /* LaunchScreen.storyboard */; };
 		36393A232009324C00C95347 /* UserDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A222009324C00C95347 /* UserDataTests.swift */; };
 		36393A2E2009324D00C95347 /* MemorizeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A2D2009324D00C95347 /* MemorizeUITests.swift */; };
-		36393A4D2009537400C95347 /* Reactor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36393A482009536900C95347 /* Reactor.framework */; };
-		36393A4E2009537400C95347 /* Reactor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36393A482009536900C95347 /* Reactor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		36393A4F2009537400C95347 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36393A472009536900C95347 /* RxSwift.framework */; };
-		36393A502009537400C95347 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36393A472009536900C95347 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		36393A512009537400C95347 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36393A492009536900C95347 /* SQLite.framework */; };
 		36393A522009537400C95347 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 36393A492009536900C95347 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		36393A562009584E00C95347 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A552009584E00C95347 /* AppCoordinator.swift */; };
@@ -72,8 +68,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				36393A502009537400C95347 /* RxSwift.framework in Embed Frameworks */,
-				36393A4E2009537400C95347 /* Reactor.framework in Embed Frameworks */,
 				36393A522009537400C95347 /* SQLite.framework in Embed Frameworks */,
 				3211073C2055DA3400BED703 /* Swiftification.framework in Embed Frameworks */,
 				3203EC102043B3F2005071C0 /* Anchorage.framework in Embed Frameworks */,
@@ -133,8 +127,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3203EC112043B3F8005071C0 /* Anchorage.framework in Frameworks */,
-				36393A4F2009537400C95347 /* RxSwift.framework in Frameworks */,
-				36393A4D2009537400C95347 /* Reactor.framework in Frameworks */,
 				3211073B2055DA3400BED703 /* Swiftification.framework in Frameworks */,
 				36393A512009537400C95347 /* SQLite.framework in Frameworks */,
 			);
@@ -313,15 +305,18 @@
 				TargetAttributes = {
 					36393A092009324C00C95347 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					36393A1D2009324C00C95347 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 36393A092009324C00C95347;
 					};
 					36393A282009324D00C95347 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 36393A092009324C00C95347;
 					};
@@ -593,7 +588,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Mine.Memorize2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -613,7 +608,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Mine.Memorize2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -628,7 +623,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Mine.MemorizeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Memorize.app/Memorize";
 			};
@@ -644,7 +639,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Mine.MemorizeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Memorize.app/Memorize";
 			};
@@ -659,7 +654,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Mine.MemorizeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Memorize;
 			};
@@ -674,7 +669,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Mine.MemorizeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Memorize;
 			};
