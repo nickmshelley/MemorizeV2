@@ -21,6 +21,11 @@ private struct Row {
 class StatsViewController: UITableViewController {
     private var sections: [Section] = []
     private let viewModel = StatsViewModel()
+    private lazy var formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 1
+        return formatter
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,15 +38,18 @@ class StatsViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        
         let cards = UserDataController.shared?.allCards() ?? []
         let stats = viewModel.stats(from: cards)
         let totalRow = Row(topText: "Total Cards: \(stats.totalCards)", middleText: nil, bottomText: nil)
+        let normalAverageString = formatter.string(from: NSNumber(floatLiteral: stats.normalAveragePerDay))
+        let reverseAverageString = formatter.string(from: NSNumber(floatLiteral: stats.reverseAveragePerDay))
         let reviewingRow = Row(topText: "Reviewing: \(stats.totalReviewing)",
             middleText: "Normal Ready: \(stats.normalReadyToReview)",
             bottomText: "Reverse Ready: \(stats.reverseReadyToReview)")
         let averageRow = Row(topText: "Average Per Day:",
-            middleText: "Normal: \(stats.normalAveragePerDay)",
-            bottomText: "Reverse: \(stats.reverseAveragePerDay)")
+            middleText: "Normal: " + normalAverageString!,
+            bottomText: "Reverse: " + reverseAverageString!)
         let totalsSection = Section(title: "Totals", rows: [totalRow, reviewingRow, averageRow])
         
         let dailyRows = stats.dayStats.map { statsInfo in
