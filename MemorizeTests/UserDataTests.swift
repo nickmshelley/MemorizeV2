@@ -30,6 +30,19 @@ class UserDataTests: XCTestCase {
         XCTAssertEqual(cards[1].answer, "D")
     }
     
+    func testDelete() {
+        let db = UserDataController(path: nil)!
+        
+        let id1 = try! db.createCard(question: "C", answer: "D")
+        let id2 = try! db.createCard(question: "A", answer: "B")
+        
+        XCTAssertEqual(db.allCards().map { $0.id }.sorted(), [id1, id2].sorted())
+        
+        try! db.deleteCard(withID: id1)
+        XCTAssertNil(try! db.card(withID: id1))
+        XCTAssertEqual(db.allCards().map { $0.id }, [id2])
+    }
+    
     func testReviewingCards() {
         let db = UserDataController(path: nil)!
         

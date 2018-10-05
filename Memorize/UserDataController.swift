@@ -168,6 +168,10 @@ extension UserDataController {
         return try db.pluck(CardTable.table.filter(CardTable.id == id)).map { try CardTable.fromRow($0) }
     }
     
+    func deleteCard(withID id: String) throws {
+        try db.run(CardTable.table.filter(CardTable.id == id).delete())
+    }
+    
     func allCards() -> [Card] {
         do {
             return try db.prepareRowIterator(CardTable.table.order(CardTable.question)).map { try CardTable.fromRow($0) }

@@ -41,3 +41,18 @@ extension CardsViewController {
         navigationController?.pushViewController(CardViewerViewController(question: card.question, answer: card.answer), animated: true)
     }
 }
+
+extension CardsViewController {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let card = cards[indexPath.row]
+            try! UserDataController.shared?.deleteCard(withID: card.id)
+            cards.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+}
