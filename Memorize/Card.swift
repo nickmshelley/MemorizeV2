@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Equatable {
+struct Card: Equatable, Codable {
     let id: String
     let question: String
     let answer: String

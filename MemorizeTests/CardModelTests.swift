@@ -44,6 +44,16 @@ class CardModelTests: XCTestCase {
         XCTAssertEqual(aLot.reverseDayDifference(), 100)
         
     }
+    
+    func testCodable() {
+        let card1 = Card(id: "1", question: "hi", answer: "yo", isReviewing: true, normalSuccessCount: 3, reverseSuccessCount: 5, normalNextReviewDate: Date(), reverseNextReviewDate: nil)
+        let card2 = Card(id: "3", question: "h333i", answer: "y444o", isReviewing: false, normalSuccessCount: 0, reverseSuccessCount: 7, normalNextReviewDate: nil, reverseNextReviewDate: Date())
+        let originalCards = [card1, card2]
+        
+        let cardsJSON = try! JSONEncoder().encode(originalCards)
+        let roundTrippedCards = try! JSONDecoder().decode([Card].self, from: cardsJSON)
+        XCTAssertEqual(originalCards, roundTrippedCards)
+    }
 }
 
 extension CardModelTests {
