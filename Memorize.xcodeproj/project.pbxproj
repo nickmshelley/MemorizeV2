@@ -18,6 +18,7 @@
 		3211FCF9204EDA8600B38B72 /* cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 3211FCF8204EDA8600B38B72 /* cards.json */; };
 		323186FD20742B4800F52046 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323186FC20742B4800F52046 /* SettingsController.swift */; };
 		323186FF20742FBA00F52046 /* CardsPerDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323186FE20742FBA00F52046 /* CardsPerDayCell.swift */; };
+		32373E7021835B180070133C /* UserData.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 32373E6F21835B180070133C /* UserData.sqlite */; };
 		324F44A5205D64B2004F5B16 /* StatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324F44A4205D64B2004F5B16 /* StatCell.swift */; };
 		32513CB720558881007D4A22 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32513CB620558881007D4A22 /* StatsViewModel.swift */; };
 		325E10D520A0953600593C03 /* ReviewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325E10D420A0953600593C03 /* ReviewViewModelTests.swift */; };
@@ -87,6 +88,7 @@
 		3211FCF8204EDA8600B38B72 /* cards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cards.json; sourceTree = "<group>"; };
 		323186FC20742B4800F52046 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		323186FE20742FBA00F52046 /* CardsPerDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsPerDayCell.swift; sourceTree = "<group>"; };
+		32373E6F21835B180070133C /* UserData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = UserData.sqlite; sourceTree = "<group>"; };
 		324F44A4205D64B2004F5B16 /* StatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCell.swift; sourceTree = "<group>"; };
 		32513CB620558881007D4A22 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		325E10D420A0953600593C03 /* ReviewViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModelTests.swift; sourceTree = "<group>"; };
@@ -110,8 +112,6 @@
 		36393A292009324D00C95347 /* MemorizeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemorizeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36393A2D2009324D00C95347 /* MemorizeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeUITests.swift; sourceTree = "<group>"; };
 		36393A2F2009324D00C95347 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		36393A472009536900C95347 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
-		36393A482009536900C95347 /* Reactor.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reactor.framework; path = Carthage/Build/iOS/Reactor.framework; sourceTree = "<group>"; };
 		36393A492009536900C95347 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/iOS/SQLite.framework; sourceTree = "<group>"; };
 		36393A552009584E00C95347 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		36393A57200958F200C95347 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +198,7 @@
 				3203EC0C2043AFEA005071C0 /* UIStackView+Helpers.swift */,
 				3280278C20B1B8180038C6E8 /* Date+Helpers.swift */,
 				3211FCF8204EDA8600B38B72 /* cards.json */,
+				32373E6F21835B180070133C /* UserData.sqlite */,
 			);
 			path = Memorize;
 			sourceTree = "<group>";
@@ -229,8 +230,6 @@
 			children = (
 				321107392055DA2A00BED703 /* Swiftification.framework */,
 				3203EC0E2043B3E8005071C0 /* Anchorage.framework */,
-				36393A482009536900C95347 /* Reactor.framework */,
-				36393A472009536900C95347 /* RxSwift.framework */,
 				36393A492009536900C95347 /* SQLite.framework */,
 			);
 			name = Frameworks;
@@ -347,6 +346,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32373E7021835B180070133C /* UserData.sqlite in Resources */,
 				3211FCF9204EDA8600B38B72 /* cards.json in Resources */,
 				36393A182009324C00C95347 /* LaunchScreen.storyboard in Resources */,
 				36393A152009324C00C95347 /* Assets.xcassets in Resources */,
@@ -578,15 +578,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZK9Q7W8L8B;
+				DEVELOPMENT_TEAM = 5L45S4RUHF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Memorize/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Mine.Memorize2;
+				PRODUCT_BUNDLE_IDENTIFIER = Mine.Memorize3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -598,15 +598,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZK9Q7W8L8B;
+				DEVELOPMENT_TEAM = 5L45S4RUHF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Memorize/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Mine.Memorize2;
+				PRODUCT_BUNDLE_IDENTIFIER = Mine.Memorize3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

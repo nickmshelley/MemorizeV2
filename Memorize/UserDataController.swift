@@ -67,8 +67,6 @@ class UserDataController {
                 try self.db.run(CardTable.createTable())
                 
                 try self.setDatabaseVersion(1)
-                
-                //importInitial()
             }
         }
     }
@@ -321,7 +319,15 @@ extension UserDataController {
 }
 
 extension UserDataController {
-    private func importInitial() {
+    static func importExisting() {
+        let original = Bundle.main.url(forResource: "UserData", withExtension: "sqlite")!
+        let destination = URL(fileURLWithPath: UserDataController.databasePath()!)
+        try? FileManager.default.removeItem(at: destination)
+        try! FileManager.default.copyItem(at: original, to: destination)
+        
+    }
+    
+    func importInitial() {
         let jsonData = try! Data(contentsOf: Bundle.main.url(forResource: "cards", withExtension: "json")!)
         let cards = try! JSONSerialization.jsonObject(with: jsonData, options: []) as! [[String: Any]]
         var tempSet = Set<String>()

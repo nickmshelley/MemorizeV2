@@ -15,6 +15,9 @@ final class AppCoordinator {
     }
     
     func start() {
+//        UserDataController.shared?.importInitial()
+//        UserDataController.importExisting()
+        
         let reviewViewController = ReviewViewController()
         reviewViewController.tabBarItem = UITabBarItem(title: "Review", image: #imageLiteral(resourceName: "check-circle"), tag: 0)
         let cardsViewController = UINavigationController(rootViewController: CardsViewController())
