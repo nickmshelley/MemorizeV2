@@ -112,6 +112,26 @@ class UserDataTests: XCTestCase {
         XCTAssertEqual(expecteds, reverseActuals)
     }
     
+    func testTodayMaxDayDifference() {
+        let db = UserDataController(path: nil)!
+        let before = Date().addingTimeInterval(-20)
+        
+        let oneIDOne = createCardWithNextReview(before, successCount: 1, db: db)
+        let oneIDTwo = createCardWithNextReview(before, successCount: 1, db: db)
+        createCardWithNextReview(before, successCount: 10, db: db)
+        createCardWithNextReview(before, successCount: 11, db: db)
+        
+        let normalActual = db.todaysNormalReviewCards(perDay: 3).map { $0.id }
+        XCTAssert(normalActual.contains(oneIDOne))
+        XCTAssert(normalActual.contains(oneIDTwo))
+        XCTAssertEqual(normalActual.count, 3)
+        
+        let reverseActual = db.todaysReverseReviewCards(perDay: 3).map { $0.id }
+        XCTAssert(reverseActual.contains(oneIDOne))
+        XCTAssert(reverseActual.contains(oneIDTwo))
+        XCTAssertEqual(reverseActual.count, 3)
+    }
+    
     func testUpdate() {
         let db = UserDataController(path: nil)!
         let needsReview = Date().addingTimeInterval(-50)

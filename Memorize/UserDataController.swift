@@ -220,7 +220,7 @@ extension UserDataController {
                 return card1.normalSuccessCount < card2.normalSuccessCount
             }
         }
-        let partitioned = sorted.partitioned { $0.normalSuccessCount }
+        let partitioned = sorted.partitioned { $0.normalDayDifference() }
         
         var result = [Card]()
         var currentIndex = 0
@@ -247,7 +247,7 @@ extension UserDataController {
                 return card1.reverseSuccessCount < card2.reverseSuccessCount
             }
         }
-        let partitioned = sorted.partitioned { $0.reverseSuccessCount }
+        let partitioned = sorted.partitioned { $0.reverseDayDifference() }
         
         var result = [Card]()
         var currentIndex = 0
