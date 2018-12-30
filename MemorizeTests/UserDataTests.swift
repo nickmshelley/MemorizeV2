@@ -118,18 +118,44 @@ class UserDataTests: XCTestCase {
         
         let oneIDOne = createCardWithNextReview(before, successCount: 1, db: db)
         let oneIDTwo = createCardWithNextReview(before, successCount: 1, db: db)
-        createCardWithNextReview(before, successCount: 10, db: db)
-        createCardWithNextReview(before, successCount: 11, db: db)
+        let tenID = createCardWithNextReview(before, successCount: 10, db: db)
+        let elevenID = createCardWithNextReview(before, successCount: 11, db: db)
         
         let normalActual = db.todaysNormalReviewCards(perDay: 3).map { $0.id }
         XCTAssert(normalActual.contains(oneIDOne))
         XCTAssert(normalActual.contains(oneIDTwo))
         XCTAssertEqual(normalActual.count, 3)
         
+        let normalTenExpectation = XCTestExpectation(description: "Normal Ten")
+        let normalElevenExpectation = XCTestExpectation(description: "Normal Eleven")
+        for _ in 0...100 {
+            let actual = db.todaysNormalReviewCards(perDay: 3).map { $0.id }
+            if actual.contains(tenID) {
+                normalTenExpectation.fulfill()
+            }
+            if actual.contains(elevenID) {
+                normalElevenExpectation.fulfill()
+            }
+        }
+        
         let reverseActual = db.todaysReverseReviewCards(perDay: 3).map { $0.id }
         XCTAssert(reverseActual.contains(oneIDOne))
         XCTAssert(reverseActual.contains(oneIDTwo))
         XCTAssertEqual(reverseActual.count, 3)
+        
+        let reverseTenExpectation = XCTestExpectation(description: "Reverse Ten")
+        let reverseElevenExpectation = XCTestExpectation(description: "Reverse Eleven")
+        for _ in 0...100 {
+            let actual = db.todaysReverseReviewCards(perDay: 3).map { $0.id }
+            if actual.contains(tenID) {
+                reverseTenExpectation.fulfill()
+            }
+            if actual.contains(elevenID) {
+                reverseElevenExpectation.fulfill()
+            }
+        }
+        
+        wait(for: [normalTenExpectation, normalElevenExpectation, reverseTenExpectation, reverseElevenExpectation], timeout: 0)
     }
     
     func testUpdate() {

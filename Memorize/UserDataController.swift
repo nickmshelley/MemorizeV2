@@ -214,10 +214,12 @@ extension UserDataController {
         guard allReady.count > reviewToday else { return allReady }
         
         let sorted = allReady.sorted { card1, card2 in
-            if card1.normalSuccessCount == card2.normalSuccessCount, let nextReview1 = card1.normalNextReviewDate, let nextReview2 = card2.normalNextReviewDate {
+            let diff1 = card1.normalDayDifference()
+            let diff2 = card2.normalDayDifference()
+            if diff1 == diff2, let nextReview1 = card1.normalNextReviewDate, let nextReview2 = card2.normalNextReviewDate {
                 return nextReview1 < nextReview2
             } else {
-                return card1.normalSuccessCount < card2.normalSuccessCount
+                return diff1 < diff2
             }
         }
         let partitioned = sorted.partitioned { $0.normalDayDifference() }
@@ -241,10 +243,12 @@ extension UserDataController {
         let allReady = reverseReadyToReviewCards().shuffled()
         guard allReady.count > reviewToday else { return allReady }
         let sorted = allReady.sorted { card1, card2 in
-            if card1.reverseSuccessCount == card2.reverseSuccessCount, let nextReview1 = card1.reverseNextReviewDate, let nextReview2 = card2.reverseNextReviewDate {
+            let diff1 = card1.reverseDayDifference()
+            let diff2 = card2.reverseDayDifference()
+            if diff1 == diff2, let nextReview1 = card1.reverseNextReviewDate, let nextReview2 = card2.reverseNextReviewDate {
                 return nextReview1 < nextReview2
             } else {
-                return card1.reverseSuccessCount < card2.reverseSuccessCount
+                return diff1 < diff2
             }
         }
         let partitioned = sorted.partitioned { $0.reverseDayDifference() }
