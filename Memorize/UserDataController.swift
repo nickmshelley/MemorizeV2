@@ -320,6 +320,13 @@ extension UserDataController {
         
         return id
     }
+    
+    func updateCardWithID(_ id: String, question: String, answer: String) throws {
+        try db.run(CardTable.table.filter(CardTable.id == id).update(
+            CardTable.question <- question,
+            CardTable.answer <- answer
+        ))
+    }
 }
 
 extension UserDataController {

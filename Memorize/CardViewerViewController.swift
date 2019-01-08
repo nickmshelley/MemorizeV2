@@ -10,6 +10,7 @@ import Anchorage
 import QuartzCore
 
 class CardViewerViewController: UIViewController {
+    private let card: Card?
     private let titleLabel = UILabel(frame: .zero)
     private let questionView: FlippableTextView
     private let answerView: FlippableTextView
@@ -17,9 +18,11 @@ class CardViewerViewController: UIViewController {
     private var questionHeightConstraint = NSLayoutConstraint()
     private var answerHeightConstraint = NSLayoutConstraint()
     
-    init(question: String, answer: String) {
-        questionView = FlippableTextView(text: question)
-        answerView = FlippableTextView(text: answer)
+    init(card: Card?) {
+        self.card = card
+        let fillerString = "No cards left to review"
+        questionView = FlippableTextView(text: card?.question ?? fillerString)
+        answerView = FlippableTextView(text: card?.answer ?? fillerString)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -31,6 +34,9 @@ class CardViewerViewController: UIViewController {
         super.viewDidLoad()
         title = "Cards"
         configureView()
+        
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTapped))
+        navigationItem.setRightBarButton(editButton, animated: false)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         tapGesture.numberOfTapsRequired = 1
@@ -110,6 +116,14 @@ extension CardViewerViewController {
         } else {
             showQuestion()
         }
+    }
+    
+    @objc func editTapped() {
+        guard let card = card else { return }
+        
+        let vc = UINavigationController(rootViewController: EditCardViewController(card: card))
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: true, completion: nil)
     }
     
     func showQuestion(duration: TimeInterval = 0.5) {

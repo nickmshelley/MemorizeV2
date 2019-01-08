@@ -182,6 +182,19 @@ class UserDataTests: XCTestCase {
         XCTAssertEqual(card.normalSuccessCount, 0)
         XCTAssertEqual(card.reverseSuccessCount, 0)
     }
+    
+    func testUpdateText() {
+        let db = UserDataController(path: nil)!
+        let id = createCardWithNextReview(Date(), successCount: 1, db: db)
+        var card = try! db.card(withID: id)!
+        XCTAssertEqual(card.question, "A")
+        XCTAssertEqual(card.answer, "B")
+        
+        try! db.updateCardWithID(id, question: "c", answer: "D")
+        card = try! db.card(withID: id)!
+        XCTAssertEqual(card.question, "c")
+        XCTAssertEqual(card.answer, "D")
+    }
 }
 
 extension UserDataTests {

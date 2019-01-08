@@ -18,7 +18,7 @@ class ReviewViewController: UIViewController {
     
     init() {
         viewModel = ReviewViewModel()
-        cardViewerViewController = CardViewerViewController(question: "No cards left to review", answer: "No cards left to review")
+        cardViewerViewController = CardViewerViewController(card: nil)
         super.init(nibName: nil, bundle: nil)
     }
     

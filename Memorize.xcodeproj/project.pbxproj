@@ -31,6 +31,7 @@
 		32DBBFFF2040C49300D14A31 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DBBFFE2040C49300D14A31 /* Card.swift */; };
 		32DBC0012040C68C00D14A31 /* UserDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DBC0002040C68C00D14A31 /* UserDataController.swift */; };
 		32EAE316205EB51C00C1D40B /* CardModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EAE315205EB51C00C1D40B /* CardModelTests.swift */; };
+		36251ABB21DFFD0C00EBBC89 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36251ABA21DFFD0C00EBBC89 /* EditCardViewController.swift */; };
 		36393A0E2009324C00C95347 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36393A0D2009324C00C95347 /* AppDelegate.swift */; };
 		36393A152009324C00C95347 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36393A142009324C00C95347 /* Assets.xcassets */; };
 		36393A182009324C00C95347 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36393A162009324C00C95347 /* LaunchScreen.storyboard */; };
@@ -101,6 +102,7 @@
 		32DBBFFE2040C49300D14A31 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		32DBC0002040C68C00D14A31 /* UserDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataController.swift; sourceTree = "<group>"; };
 		32EAE315205EB51C00C1D40B /* CardModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModelTests.swift; sourceTree = "<group>"; };
+		36251ABA21DFFD0C00EBBC89 /* EditCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
 		36393A0A2009324C00C95347 /* Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36393A0D2009324C00C95347 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36393A142009324C00C95347 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				32B1342A209E480100E32B8F /* UndoObject.swift */,
 				323186FC20742B4800F52046 /* SettingsController.swift */,
 				3203EC082043AD64005071C0 /* CardViewerViewController.swift */,
+				36251ABA21DFFD0C00EBBC89 /* EditCardViewController.swift */,
 				3203EC0A2043ADF9005071C0 /* FlippableTextView.swift */,
 				3203EC0C2043AFEA005071C0 /* UIStackView+Helpers.swift */,
 				3280278C20B1B8180038C6E8 /* Date+Helpers.swift */,
@@ -408,6 +411,7 @@
 				3203EC0B2043ADF9005071C0 /* FlippableTextView.swift in Sources */,
 				3203EC0D2043AFEA005071C0 /* UIStackView+Helpers.swift in Sources */,
 				3203EC092043AD64005071C0 /* CardViewerViewController.swift in Sources */,
+				36251ABB21DFFD0C00EBBC89 /* EditCardViewController.swift in Sources */,
 				32513CB720558881007D4A22 /* StatsViewModel.swift in Sources */,
 				36393A9C2009771300C95347 /* SettingsViewController.swift in Sources */,
 			);
