@@ -53,7 +53,7 @@ extension ReviewViewModel {
             SettingsController.reverseReviewedToday += 1
         }
         
-        cards.remove(at: cards.index(of: currentCard)!)
+        cards.remove(at: cards.firstIndex(of: currentCard)!)
         remaining -= 1
         updateCurrentCard()
     }
@@ -70,7 +70,7 @@ extension ReviewViewModel {
             updatedCard = try! UserDataController.shared!.updateReverseReviewMissed(ofCardWithID: currentCard.id)
         }
         
-        cards.remove(at: cards.index(of: currentCard)!)
+        cards.remove(at: cards.firstIndex(of: currentCard)!)
         cards.append(updatedCard)
         updateCurrentCard()
     }
@@ -92,7 +92,7 @@ extension ReviewViewModel {
                     cards = [card]
                 }
             } else {
-                cards.remove(at: cards.index(where: { $0.id == card.id })!)
+                cards.remove(at: cards.firstIndex(where: { $0.id == card.id })!)
                 cards.append(updatedCard)
             }
         } else {
@@ -102,7 +102,7 @@ extension ReviewViewModel {
                 SettingsController.reverseReviewedToday -= 1
                 cards.append(card)
             } else {
-                cards.remove(at: cards.index(where: { $0.id == card.id })!)
+                cards.remove(at: cards.firstIndex(where: { $0.id == card.id })!)
                 cards.append(updatedCard)
             }
         }
