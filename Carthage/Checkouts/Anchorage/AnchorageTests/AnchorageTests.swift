@@ -3,7 +3,7 @@
 //  AnchorageTests
 //
 //  Created by Zev Eisenberg on 4/29/17.
-//  Copyright © 2017 Raizlabs. All rights reserved.
+//  Copyright © 2017 Rightpoint. All rights reserved.
 //
 
 #if os(macOS)
@@ -16,7 +16,9 @@
 import XCTest
 
 #if swift(>=4.0)
+    public typealias ConstraintAttribute = NSLayoutConstraint.Attribute
 #else
+    public typealias ConstraintAttribute = NSLayoutAttribute
     func XCTAssertEqual<T>(_ expression1: @autoclosure () throws -> T, _ expression2: @autoclosure () throws -> T, accuracy: T, _ message: @autoclosure () -> String = "", file: StaticString = #file, line: UInt = #line) where T : FloatingPoint {
         XCTAssertEqualWithAccuracy(expression1, expression2, accuracy: accuracy, message, file: file, line: line)
     }
@@ -30,12 +32,10 @@ import XCTest
         let TestPriorityRequired = NSLayoutConstraint.Priority.required
         let TestPriorityHigh = NSLayoutConstraint.Priority.defaultHigh
         let TestPriorityLow = NSLayoutConstraint.Priority.defaultLow
-        public typealias ConstraintAttribute = NSLayoutConstraint.Attribute
     #else
         let TestPriorityRequired = NSLayoutPriorityRequired
         let TestPriorityHigh = NSLayoutPriorityDefaultHigh
         let TestPriorityLow = NSLayoutPriorityDefaultLow
-        public typealias ConstraintAttribute = NSLayoutAttribute
     #endif
 
 #else
@@ -51,8 +51,6 @@ import XCTest
         let TestPriorityHigh = UILayoutPriorityDefaultHigh
         let TestPriorityLow = UILayoutPriorityDefaultLow
     #endif
-
-    public typealias ConstraintAttribute = NSLayoutAttribute
 #endif
 
 let cgEpsilon: CGFloat = 0.00001
@@ -639,7 +637,7 @@ class AnchorageTests: XCTestCase {
 extension AnchorageTests {
 
     func assertIdentical(_ expression1: @autoclosure () -> AnyObject?, _ expression2: @autoclosure () -> AnyObject?, _ message: @autoclosure () -> String = "Objects were not identical", file: StaticString = #file, line: UInt = #line) {
-        XCTAssertTrue(expression1() === expression2(), message, file: file, line: line)
+        XCTAssertTrue(expression1() === expression2(), message(), file: file, line: line)
     }
 
 }
@@ -662,6 +660,9 @@ extension ConstraintAttribute: CustomDebugStringConvertible {
         case .lastBaseline: return "lastBaseline"
         case .firstBaseline: return "firstBaseline"
         case .notAnAttribute: return "notAnAttribute"
+        #if swift(>=5.0)
+        @unknown default: return "unknown case \(self): \(self.rawValue)"
+        #endif
         }
 #else
         switch self {
@@ -686,6 +687,9 @@ extension ConstraintAttribute: CustomDebugStringConvertible {
         case .centerXWithinMargins: return "centerXWithinMargins"
         case .centerYWithinMargins: return "centerYWithinMargins"
         case .notAnAttribute: return "notAnAttribute"
+        #if swift(>=5.0)
+        @unknown default: return "unknown case \(self): \(self.rawValue)"
+        #endif
         }
 #endif
     }

@@ -1,144 +1,159 @@
-version: 2
+version: 2.1
 
 jobs:
-  test-swift-3-xcode-10:
-    macos:
-      xcode: "10.0.0"
+  test-swift-package:
+    executor: xcode-11
     steps:
       - checkout
-      - run:
-          name: Restore Ruby Gems
-          command: |
-            bundle check || bundle install
-      - run: ./scripts/macOS_Swift_3_Xcode_10.0.sh
-      - run: ./scripts/iOS_Swift_3_32_bit_Xcode_10.0.sh
-      - run: ./scripts/iOS_Swift_3_64_bit_Xcode_10.0.sh
-      - run: ./scripts/iOS_demo_Swift_3_Xcode_10.0.sh
-      - run: ./scripts/tvOS_Swift_3_Xcode_10.0.sh
-      - run: bundle exec pod lib lint --swift-version=3.0
+      - run: swift test
 
-  test-swift-4-xcode-10:
-    macos:
-      xcode: "10.0.0"
+  test-swift-5:
+    executor: xcode-11
     steps:
-      - checkout
-      - run:
-          name: Restore Ruby Gems
-          command: |
-            bundle check || bundle install
-      - run: ./scripts/macOS_Swift_4_Xcode_10.0.sh
-      - run: ./scripts/iOS_Swift_4_32_bit_Xcode_10.0.sh
-      - run: ./scripts/iOS_Swift_4_64_bit_Xcode_10.0.sh
-      - run: ./scripts/iOS_demo_Swift_4_Xcode_10.0.sh
-      - run: ./scripts/tvOS_Swift_4_Xcode_10.0.sh
-      - run: bundle exec pod lib lint --swift-version=4.0
-      
-  test-swift-3-xcode-9:
-    macos:
-      xcode: "9.3.0"
-    steps:
-      - checkout
-      - run:
-          name: Restore Ruby Gems
-          command: |
-            bundle check || bundle install
-      - run: ./scripts/macOS_Swift_3_Xcode_9.3.sh
-      - run: ./scripts/iOS_Swift_3_32_bit_Xcode_9.3.sh
-      - run: ./scripts/iOS_Swift_3_64_bit_Xcode_9.3.sh
-      - run: ./scripts/iOS_demo_Swift_3_Xcode_9.3.sh
-      - run: ./scripts/tvOS_Swift_3_Xcode_9.3.sh
-      - run: bundle exec pod lib lint --swift-version=3.0
+      - setup
+      - test-scripts
+      - lint-pod:
+          swift-version: "5.0"
 
-  test-swift-4-xcode-9:
-    macos:
-      xcode: "9.3.0"
+  test-swift-4:
+    executor: xcode-11
     steps:
-      - checkout
-      - run:
-          name: Restore Ruby Gems
-          command: |
-            bundle check || bundle install
-      - run: ./scripts/macOS_Swift_4_Xcode_9.3.sh
-      - run: ./scripts/iOS_Swift_4_32_bit_Xcode_9.3.sh
-      - run: ./scripts/iOS_Swift_4_64_bit_Xcode_9.3.sh
-      - run: ./scripts/iOS_demo_Swift_4_Xcode_9.3.sh
-      - run: ./scripts/tvOS_Swift_4_Xcode_9.3.sh
-      - run: bundle exec pod lib lint --swift-version=4.0
+      - setup
+      - test-scripts:
+          swift-version: "4.2"
+          ios-version: "12.4"
+      - lint-pod:
+          swift-version: "4.2"
 
-  carthage-build-xcode-9:
-    macos:
-      xcode: "9.3.0"
+  carthage-build-swift-4:
+    executor: xcode-11
+    environment:
+      XCODE_XCCONFIG_FILE: ./.circleci/SWIFT_5.0.xcconfig
     steps:
-      - checkout
-      - run:
-          name: Update homebrew dependencies
-          command: brew update 1> /dev/null 2> /dev/null
-      - run:
-          name: Update Carthage
-          command: brew outdated carthage || (brew uninstall carthage --force; HOMEBREW_NO_AUTO_UPDATE=1 brew install carthage --force-bottle)
-      - run: carthage build --no-skip-current && for platform in Mac iOS tvOS; do test -d Carthage/Build/${platform}/Anchorage.framework || exit 1; done
+      - build-carthage
 
-  carthage-build-xcode-10:
-    macos:
-      xcode: "10.0.0"
+  carthage-build-swift-5:
+    executor: xcode-11
+    environment:
+      XCODE_XCCONFIG_FILE: ./.circleci/SWIFT_4.2.xcconfig
     steps:
-      - checkout
-      - run:
-          name: Update homebrew dependencies
-          command: brew update 1> /dev/null 2> /dev/null
-      - run:
-          name: Update Carthage
-          command: brew outdated carthage || (brew uninstall carthage --force; HOMEBREW_NO_AUTO_UPDATE=1 brew install carthage --force-bottle)
-      - run: carthage build --no-skip-current && for platform in Mac iOS tvOS; do test -d Carthage/Build/${platform}/Anchorage.framework || exit 1; done
+      - build-carthage
 
   deploy-to-cocoapods:
-    macos:
-      xcode: "10.0.0"
+    executor: xcode-11
     steps:
       - checkout
-      - run:
-          name: Install CocoaPods Specs Repo
-          command: |
-            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
-      - run: bundle install
+      - restore-gems
       - run: bundle exec pod trunk push
+
+executors:
+  xcode-11:
+    macos:
+      xcode: "11.3.1"
+    environment:
+      LC_ALL: en_US.UTF-8
+      LANG: en_US.UTF-8
+      HOMEBREW_NO_AUTO_UPDATE: 1
+    shell: /bin/bash --login -eo pipefail
+
+commands:
+  setup:
+    description: "Shared setup"
+    steps:
+      - checkout
+      - restore-gems
+
+  restore-gems:
+    description: "Restore Ruby Gems"
+    steps:
+      - run:
+          name: Set Ruby Version
+          command:  echo "ruby-2.5" > ~/.ruby-version
+      - restore_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+      - run: bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+  update-homebrew:
+    description: "Update Homebrew"
+    steps:
+      - run:
+          name: Update homebrew dependencies
+          command: brew update 1> /dev/null 2> /dev/null
+
+  update-carthage:
+    description: "Update Carthage"
+    steps:
+      - run:
+          name: Update Carthage
+          command: brew outdated carthage || (brew uninstall carthage --force; HOMEBREW_NO_AUTO_UPDATE=1 brew install carthage --force-bottle)
+
+  build-carthage:
+    description: "Build Carthage"
+    steps:
+      - checkout
+      - update-homebrew
+      - update-carthage
+      - run: carthage build --no-skip-current && for platform in Mac iOS tvOS; do test -d Carthage/Build/${platform}/Anchorage.framework || exit 1; done
+
+  lint-pod:
+    description: "Lints podspec with specified Swift version"
+    parameters:
+      swift-version:
+        type: string
+        default: "5.0"
+    steps:
+      - run: bundle exec pod lib lint --swift-version=<< parameters.swift-version >>
+
+  test-scripts:
+    description: "Runs test scripts with specified versions"
+    parameters:
+      swift-version:
+        type: string
+        default: "5.0"
+      ios-version:
+        type: string
+        default: "13.3"
+    steps:
+      - run: ./scripts/iOS_demo_Swift.sh << parameters.ios-version >> << parameters.swift-version >>
+      - run: ./scripts/iOS_Swift.sh << parameters.ios-version >> << parameters.swift-version >>
+      - run: ./scripts/macOS_Swift.sh << parameters.swift-version >>
+      - run: ./scripts/tvOS_Swift.sh << parameters.ios-version >> << parameters.swift-version >>
 
 workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - test-swift-3-xcode-10:
+      - test-swift-package:
           filters:
             tags:
               only: /.*/
-      - test-swift-4-xcode-10:
+      - test-swift-5:
           filters:
             tags:
               only: /.*/
-      - test-swift-3-xcode-9:
+      - test-swift-4:
           filters:
             tags:
               only: /.*/
-      - test-swift-4-xcode-9:
+      - carthage-build-swift-4:
           filters:
             tags:
               only: /.*/
-      - carthage-build-xcode-10:
-          filters:
-            tags:
-              only: /.*/
-      - carthage-build-xcode-9:
+      - carthage-build-swift-5:
           filters:
             tags:
               only: /.*/
       - deploy-to-cocoapods:
           requires:
-            - test-swift-3-xcode-10
-            - test-swift-4-xcode-10
-            - test-swift-3-xcode-9
-            - test-swift-4-xcode-9
-            - carthage-build-xcode-10
-            - carthage-build-xcode-9
+            - test-swift-package
+            - test-swift-5
+            - test-swift-4
+            - carthage-build-swift-4
+            - carthage-build-swift-5
           filters:
             tags:
               only: /\d+(\.\d+)*(-.*)*/

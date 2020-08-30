@@ -1,9 +1,9 @@
 {
-  "commitish" : "11.0.0",
+  "commitish" : "11.0.1",
   "iOS" : [
     {
       "name" : "Swiftification",
-      "hash" : "6e47eac9e727506a7cb1151a04300acb61a7a553cf84506a9b1e89b073dbb903"
+      "hash" : "79c8beb69be097d652813f31f598c0b67a6f2050e60777aacdd68f73e116267a"
     }
   ]
 }

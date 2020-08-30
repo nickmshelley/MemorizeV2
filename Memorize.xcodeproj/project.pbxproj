@@ -384,7 +384,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "Carthage/Checkouts/ios-tools/scripts/copy-carthage-frameworks";
+			shellScript = "Carthage/Checkouts/ios-tools/scripts/copy-carthage-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
